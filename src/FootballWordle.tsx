@@ -1,10 +1,5 @@
-import React, {
-  CSSProperties,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import type { CSSProperties } from "react";
 import "./FootballWordle.css";
 import players from "./players.json";
 
