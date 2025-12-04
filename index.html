@@ -15,6 +15,42 @@
     content="Guess the football player in 6 tries. Play the Football Wordle-style puzzle and share your streak." />
   <meta property="og:type" content="website" />
   <meta name="google-adsense-account" content="ca-pub-6840620846200583">
+  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+  <script>
+    window.googletag = window.googletag || { cmd: [] };
+    googletag.cmd.push(function () {
+      const slotConfigs = {
+        "top-banner": { path: "/23297979034/top-banner", sizes: [[970, 90], [728, 90], [320, 100], [320, 50]] },
+        // "above-board": { path: "/1234567/football-wordle/above-board", sizes: [[728, 90], [300, 250], [320, 100], [320, 50]] },
+        // "between-board-keyboard": { path: "/1234567/football-wordle/mid", sizes: [[300, 250], [320, 100], [320, 50]] },
+        // "sticky-footer": { path: "/1234567/football-wordle/footer", sizes: [[728, 90], [320, 50]] },
+        // "sidebar-left": { path: "/1234567/football-wordle/sidebar-left", sizes: [[300, 600], [300, 250]] },
+        // "sidebar-rect": { path: "/1234567/football-wordle/sidebar-right-1", sizes: [[300, 600], [300, 250]] },
+        // "sidebar-rect-2": { path: "/1234567/football-wordle/sidebar-right-2", sizes: [[300, 250]] },
+      };
+
+      Object.entries(slotConfigs).forEach(([slotId, cfg]) => {
+        // ensure each placeholder has a unique DOM id for GPT display
+        const el = document.querySelector(`[data-slot-id="${slotId}"]`);
+        if (!el) return;
+        const domId = `gpt-${slotId}`;
+        el.id = domId;
+
+        googletag
+          .defineSlot(cfg.path, cfg.sizes, domId)
+          .addService(googletag.pubads());
+      });
+
+      googletag.pubads().enableSingleRequest();
+      googletag.pubads().collapseEmptyDivs();
+      googletag.enableServices();
+
+      Object.keys(slotConfigs).forEach((slotId) => {
+        const domId = `gpt-${slotId}`;
+        if (document.getElementById(domId)) googletag.display(domId);
+      });
+    });
+  </script>
 </head>
 
 <body>

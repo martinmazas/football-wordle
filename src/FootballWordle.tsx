@@ -15,10 +15,10 @@ const STORAGE_KEY = "fw-stats-v1";
 
 type CellStatus = "empty" | "correct" | "present" | "absent";
 
-// interface AdSlotProps {
-//   id: string;
-//   label?: string;
-// }
+interface AdSlotProps {
+  id: string;
+  label?: string;
+}
 
 type Stats = {
   guesses: number[]; // index 0 => solved in 1, ..., index 5 => solved in 6
@@ -29,13 +29,13 @@ type Stats = {
  * Simple ad placeholder.
  * Replace <div> with your AdSense / Ad Manager code.
  */
-// const AdSlot: React.FC<AdSlotProps> = ({ id, label }) => {
-//   return (
-//     <div className="ad-slot" data-slot-id={id}>
-//       <span className="ad-label">{label ?? "Ad"}</span>
-//     </div>
-//   );
-// };
+const AdSlot: React.FC<AdSlotProps> = ({ id, label }) => {
+  return (
+    <div className="ad-slot" data-slot-id={id}>
+      <span className="ad-label">{label ?? "Ad"}</span>
+    </div>
+  );
+};
 
 const FootballWordle: React.FC = () => {
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -323,7 +323,7 @@ const FootballWordle: React.FC = () => {
       <header className="fw-header">
         <Header />
         {/* Top banner ad (good for desktop and mobile) */}
-        {/* <AdSlot id="top-banner" label="Top banner ad" /> */}
+        <AdSlot id="top-banner" label="Top banner ad" />
       </header>
 
       <main className="fw-main">
