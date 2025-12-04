@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import type { CSSProperties } from "react";
 import "./FootballWordle.css";
 import players from "./players.json";
@@ -37,6 +43,8 @@ const FootballWordle: React.FC = () => {
     "playing"
   );
   const [showStats, setShowStats] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const mobileInputRef = useRef<HTMLInputElement | null>(null);
   const [targetPlayer, setTargetPlayer] = useState(
     players[Math.floor(Math.random() * players.length)]
   );
@@ -210,8 +218,23 @@ const FootballWordle: React.FC = () => {
     [currentGuess.length, gameStatus, handleSubmitGuess]
   );
 
+  const handleMobileChange = (value: string) => {
+    if (gameStatus !== "playing") return;
+    const sanitized = value.replace(/[^a-zA-Z]/g, "").toUpperCase();
+    setCurrentGuess(sanitized.slice(0, WORD_LENGTH));
+  };
+
+  const handleMobileKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmitGuess();
+    }
+  };
+
   // Physical keyboard support
   useEffect(() => {
+    if (isMobile) return;
+
     const listener = (e: KeyboardEvent) => {
       const key = e.key.toUpperCase();
 
@@ -228,7 +251,20 @@ const FootballWordle: React.FC = () => {
 
     window.addEventListener("keydown", listener);
     return () => window.removeEventListener("keydown", listener);
-  }, [handleKeyPress]);
+  }, [handleKeyPress, isMobile]);
+
+  // Detect mobile to show native keyboard input
+  useEffect(() => {
+    if (typeof navigator === "undefined") return;
+    const ua = navigator.userAgent || "";
+    setIsMobile(/Mobi|Android|iPhone|iPad|iPod/i.test(ua));
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      mobileInputRef.current?.focus();
+    }
+  }, [isMobile]);
 
   const getCellStatus = (rowIndex: number, colIndex: number): CellStatus => {
     const guess = guesses[rowIndex];
@@ -269,6 +305,9 @@ const FootballWordle: React.FC = () => {
     setCurrentGuess("");
     setGameStatus("playing");
     setShowStats(false);
+    if (isMobile) {
+      mobileInputRef.current?.focus();
+    }
   };
 
   const message =
@@ -291,11 +330,36 @@ const FootballWordle: React.FC = () => {
       </header>
 
       <main className="fw-main">
+        {/* Left sidebar for desktop */}
+        <aside className="fw-sidebar fw-sidebar--left">
+          <AdSlot id="sidebar-left" label="Sidebar ad" />
+        </aside>
+
         <section className="fw-board-container">
           {/* Ad above the board – high visibility, but below the title */}
           <AdSlot id="above-board" label="Above board ad" />
 
           <div className="fw-message">{message}</div>
+          {isMobile && (
+            <input
+              className="fw-mobile-input"
+              id="fw-mobile"
+              ref={mobileInputRef}
+              type="text"
+              inputMode="text"
+              autoCapitalize="characters"
+              autoComplete="off"
+              autoCorrect="off"
+              autoFocus
+              value={currentGuess}
+              onChange={(e) => handleMobileChange(e.target.value)}
+              onKeyDown={handleMobileKeyDown}
+              maxLength={WORD_LENGTH}
+              placeholder="Type your guess"
+              aria-label="Type your guess"
+              onFocus={(e) => e.target.select()}
+            />
+          )}
           <div
             className="fw-board"
             style={
@@ -305,6 +369,11 @@ const FootballWordle: React.FC = () => {
                 "--fw-tile-gap": `${TILE_GAP_PX}px`,
               } as CSSProperties
             }
+            onClick={() => {
+              if (isMobile) {
+                mobileInputRef.current?.focus();
+              }
+            }}
           >
             {Array.from({ length: MAX_TRIES }).map((_, rowIdx) => (
               <div className="fw-row" key={rowIdx}>
@@ -332,9 +401,10 @@ const FootballWordle: React.FC = () => {
           </div>
         </section>
 
-        {/* Right column for desktop only – large rectangle */}
-        <aside className="fw-sidebar">
+        {/* Right column for desktop only – large rectangles */}
+        <aside className="fw-sidebar fw-sidebar--right">
           <AdSlot id="sidebar-rect" label="Sidebar ad" />
+          <AdSlot id="sidebar-rect-2" label="Sidebar ad 2" />
         </aside>
       </main>
 
