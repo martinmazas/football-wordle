@@ -8,16 +8,17 @@ import React, {
 import type { CSSProperties } from "react";
 import "./FootballWordle.css";
 import players from "./players.json";
+import Header from "./Components/Header";
 
 const MAX_TRIES = 6;
 const STORAGE_KEY = "fw-stats-v1";
 
 type CellStatus = "empty" | "correct" | "present" | "absent";
 
-interface AdSlotProps {
-  id: string;
-  label?: string;
-}
+// interface AdSlotProps {
+//   id: string;
+//   label?: string;
+// }
 
 type Stats = {
   guesses: number[]; // index 0 => solved in 1, ..., index 5 => solved in 6
@@ -28,13 +29,13 @@ type Stats = {
  * Simple ad placeholder.
  * Replace <div> with your AdSense / Ad Manager code.
  */
-const AdSlot: React.FC<AdSlotProps> = ({ id, label }) => {
-  return (
-    <div className="ad-slot" data-slot-id={id}>
-      <span className="ad-label">{label ?? "Ad"}</span>
-    </div>
-  );
-};
+// const AdSlot: React.FC<AdSlotProps> = ({ id, label }) => {
+//   return (
+//     <div className="ad-slot" data-slot-id={id}>
+//       <span className="ad-label">{label ?? "Ad"}</span>
+//     </div>
+//   );
+// };
 
 const FootballWordle: React.FC = () => {
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -320,24 +321,20 @@ const FootballWordle: React.FC = () => {
   return (
     <div className="fw-page">
       <header className="fw-header">
-        <div className="fw-header-top">
-          <h1 className="fw-title">Football Wordle</h1>
-          <p className="fw-subtitle">Guess the player in 6 tries!</p>
-        </div>
-
+        <Header />
         {/* Top banner ad (good for desktop and mobile) */}
-        <AdSlot id="top-banner" label="Top banner ad" />
+        {/* <AdSlot id="top-banner" label="Top banner ad" /> */}
       </header>
 
       <main className="fw-main">
         {/* Left sidebar for desktop */}
         <aside className="fw-sidebar fw-sidebar--left">
-          <AdSlot id="sidebar-left" label="Sidebar ad" />
+          {/* <AdSlot id="sidebar-left" label="Sidebar ad" /> */}
         </aside>
 
         <section className="fw-board-container">
           {/* Ad above the board – high visibility, but below the title */}
-          <AdSlot id="above-board" label="Above board ad" />
+          {/* <AdSlot id="above-board" label="Above board ad" /> */}
 
           <div className="fw-message">{message}</div>
           {isMobile && (
@@ -384,7 +381,7 @@ const FootballWordle: React.FC = () => {
             ))}
           </div>
           {/* Ad between board and keyboard */}
-          <AdSlot id="between-board-keyboard" label="Mid-page ad" />
+          {/* <AdSlot id="between-board-keyboard" label="Mid-page ad" /> */}
 
           <Keyboard
             onKeyPress={handleKeyPress}
@@ -403,14 +400,14 @@ const FootballWordle: React.FC = () => {
 
         {/* Right column for desktop only – large rectangles */}
         <aside className="fw-sidebar fw-sidebar--right">
-          <AdSlot id="sidebar-rect" label="Sidebar ad" />
-          <AdSlot id="sidebar-rect-2" label="Sidebar ad 2" />
+          {/* <AdSlot id="sidebar-rect" label="Sidebar ad" /> */}
+          {/* <AdSlot id="sidebar-rect-2" label="Sidebar ad 2" /> */}
         </aside>
       </main>
 
       {/* Sticky footer ad (especially strong on mobile) */}
       <footer className="fw-footer">
-        <AdSlot id="sticky-footer" label="Sticky footer ad" />
+        {/* <AdSlot id="sticky-footer" label="Sticky footer ad" /> */}
       </footer>
 
       {showStats && (
