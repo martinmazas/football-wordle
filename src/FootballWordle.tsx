@@ -43,6 +43,7 @@ const FootballWordle: React.FC = () => {
   const [gameStatus, setGameStatus] = useState<"playing" | "won" | "lost">(
     "playing"
   );
+  const [showIntro, setShowIntro] = useState(true);
   const [showStats, setShowStats] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const mobileInputRef = useRef<HTMLInputElement | null>(null);
@@ -200,6 +201,7 @@ const FootballWordle: React.FC = () => {
 
   const handleKeyPress = useCallback(
     (key: string) => {
+      if (showIntro) return;
       if (gameStatus !== "playing") return;
 
       if (key === "ENTER") {
@@ -216,7 +218,7 @@ const FootballWordle: React.FC = () => {
         setCurrentGuess((prev) => prev + key);
       }
     },
-    [currentGuess.length, gameStatus, handleSubmitGuess]
+    [currentGuess.length, gameStatus, handleSubmitGuess, showIntro]
   );
 
   const handleMobileChange = (value: string) => {
@@ -305,6 +307,7 @@ const FootballWordle: React.FC = () => {
     setGuesses([]);
     setCurrentGuess("");
     setGameStatus("playing");
+    setShowIntro(false);
     setShowStats(false);
     if (isMobile) {
       mobileInputRef.current?.focus();
@@ -386,7 +389,7 @@ const FootballWordle: React.FC = () => {
           <Keyboard
             onKeyPress={handleKeyPress}
             keyStatuses={keyStatuses}
-            disabled={gameStatus !== "playing"}
+            disabled={gameStatus !== "playing" || showIntro}
           />
 
           <div className="fw-actions">
@@ -409,6 +412,58 @@ const FootballWordle: React.FC = () => {
       <footer className="fw-footer">
         {/* <AdSlot id="sticky-footer" label="Sticky footer ad" /> */}
       </footer>
+
+      {showIntro && (
+        <div className="fw-modal" role="dialog" aria-modal="true">
+          <div
+            className="fw-modal__backdrop"
+            onClick={() => setShowIntro(false)}
+          />
+          <div className="fw-modal__content fw-modal__content--intro">
+            <div className="fw-modal__header">
+              <div>
+                <p className="fw-modal__eyebrow">Quick start</p>
+                <h2 className="fw-modal__title">How to play</h2>
+              </div>
+              <button
+                className="fw-modal__close"
+                aria-label="Close intro"
+                onClick={() => setShowIntro(false)}
+              >
+                ✕
+              </button>
+            </div>
+
+            <p className="fw-intro-text">
+              You have 6 tries to guess the football player. Type or tap letters,
+              then press enter to submit.
+            </p>
+
+            <div className="fw-intro-steps">
+              <div className="fw-intro-step">
+                <span className="fw-intro-badge">Green</span>
+                <span>Correct letter in the correct spot</span>
+              </div>
+              <div className="fw-intro-step">
+                <span className="fw-intro-badge fw-intro-badge--yellow">
+                  Yellow
+                </span>
+                <span>Letter is in the word, wrong spot</span>
+              </div>
+              <div className="fw-intro-step">
+                <span className="fw-intro-badge fw-intro-badge--red">Red</span>
+                <span>Letter is not in the word</span>
+              </div>
+            </div>
+
+            <div className="fw-modal__actions">
+              <button className="fw-button" onClick={() => setShowIntro(false)}>
+                Start playing
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showStats && (
         <div className="fw-modal" role="dialog" aria-modal="true">
