@@ -3,54 +3,26 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="./src/images/ball.png" />
+
+  <!-- Vite: better as absolute path -->
+  <link rel="icon" type="image/png" href="/src/images/ball.png" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>**Football Wordle - Daily Player Guessing Game & Soccer Quiz**</title>
+
+  <title>Football Wordle - Guess Players & Teams in 6 Tries</title>
   <meta name="description"
-    content="Play Football Wordle online — daily football player guessing game inspired by Wordle. Guess soccer stars in 6 tries, track your stats, and share with friends." />
-  <meta name="keywords"
-    content="football wordle, soccer wordle, football guessing game, soccer quiz, football player quiz, guess the footballer, guess the player game, footle, premier league wordle, champions league wordle, world cup wordle, football puzzle game, daily football puzzle, football trivia, football daily game, soccer daily game, football brain teaser, football players game, soccer players quiz, football word game online, free football word game, football trivia game, online wordle game, soccer star quiz, football challenge, euro wordle, footy wordle, la liga wordle, bundesliga wordle, guess the player by club" />
-  <meta property="og:title" content="**Football Wordle: Guess the Player Daily!**" />
+    content="Play Football Wordle online — a football guessing game inspired by Wordle. Guess players or teams in 6 tries, track your stats, and keep your streak." />
+  <link rel="canonical" href="https://wordlefootball.netlify.app/" />
+
+  <meta property="og:title" content="Football Wordle - Guess the Player or Team" />
   <meta property="og:description"
-    content="Guess the football player in 6 tries. Play the Football Wordle-style puzzle and share your streak." />
+    content="Guess the football player or club in 6 tries using color hints. Mobile-friendly and fast rounds." />
   <meta property="og:type" content="website" />
-  <meta name="google-adsense-account" content="ca-pub-6840620846200583">
-  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-  <script>
-    window.googletag = window.googletag || { cmd: [] };
-    googletag.cmd.push(function () {
-      const slotConfigs = {
-        "top-banner": { path: "/23297979034/top-banner", sizes: [[970, 90], [728, 90], [320, 100], [320, 50]] },
-        <!-- // "above-board": { path: "/1234567/football-wordle/above-board", sizes: [[728, 90], [300, 250], [320, 100], [320, 50]] },
-        // "between-board-keyboard": { path: "/1234567/football-wordle/mid", sizes: [[300, 250], [320, 100], [320, 50]] },
-        // "sticky-footer": { path: "/1234567/football-wordle/footer", sizes: [[728, 90], [320, 50]] },
-        // "sidebar-left": { path: "/1234567/football-wordle/sidebar-left", sizes: [[300, 600], [300, 250]] },
-        // "sidebar-rect": { path: "/1234567/football-wordle/sidebar-right-1", sizes: [[300, 600], [300, 250]] },
-        // "sidebar-rect-2": { path: "/1234567/football-wordle/sidebar-right-2", sizes: [[300, 250]] }, -->
-      };
+  <meta property="og:url" content="https://wordlefootball.netlify.app/" />
 
-      Object.entries(slotConfigs).forEach(([slotId, cfg]) => {
-        // ensure each placeholder has a unique DOM id for GPT display
-        const el = document.querySelector(`[data-slot-id="${slotId}"]`);
-        if (!el) return;
-        const domId = `gpt-${slotId}`;
-        el.id = domId;
 
-        googletag
-          .defineSlot(cfg.path, cfg.sizes, domId)
-          .addService(googletag.pubads());
-      });
-
-      googletag.pubads().enableSingleRequest();
-      googletag.pubads().collapseEmptyDivs();
-      googletag.enableServices();
-
-      Object.keys(slotConfigs).forEach((slotId) => {
-        const domId = `gpt-${slotId}`;
-        if (document.getElementById(domId)) googletag.display(domId);
-      });
-    });
-  </script>
+  <!-- AdSense account verification (ok to keep) -->
+  <meta name="google-adsense-account" content="ca-pub-6840620846200583" />
 </head>
 
 <body>
