@@ -7,37 +7,49 @@ import React, {
 } from "react";
 import type { CSSProperties } from "react";
 import "./FootballWordle.css";
-import players from "./players.json";
 import Header from "./Components/Header";
 
 const MAX_TRIES = 6;
-const STORAGE_KEY = "fw-stats-v1";
 
 type CellStatus = "empty" | "correct" | "present" | "absent";
 
-interface AdSlotProps {
-  id: string;
-  label?: string;
+// interface AdSlotProps {
+//   id: string;
+//   label?: string;
+// }
+
+type GameMode = "players" | "teams";
+
+interface FootballWordleProps {
+  mode: GameMode;
+  wordList: string[];
+  onBack?: () => void;
 }
 
 type Stats = {
   guesses: number[]; // index 0 => solved in 1, ..., index 5 => solved in 6
   losses: number;
+  currentStreak: number;
+  bestStreak: number;
 };
 
 /**
  * Simple ad placeholder.
  * Replace <div> with your AdSense / Ad Manager code.
  */
-const AdSlot: React.FC<AdSlotProps> = ({ id, label }) => {
-  return (
-    <div className="ad-slot" data-slot-id={id}>
-      <span className="ad-label">{label ?? "Ad"}</span>
-    </div>
-  );
-};
+// const AdSlot: React.FC<AdSlotProps> = ({ id, label }) => {
+//   return (
+//     <div className="ad-slot" data-slot-id={id}>
+//       <span className="ad-label">{label ?? "Ad"}</span>
+//     </div>
+//   );
+// };
 
-const FootballWordle: React.FC = () => {
+const FootballWordle: React.FC<FootballWordleProps> = ({
+  mode,
+  wordList,
+  onBack,
+}) => {
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState("");
   const [gameStatus, setGameStatus] = useState<"playing" | "won" | "lost">(
@@ -46,15 +58,21 @@ const FootballWordle: React.FC = () => {
   const [showStats, setShowStats] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const mobileInputRef = useRef<HTMLInputElement | null>(null);
-  const [targetPlayer, setTargetPlayer] = useState(
-    players[Math.floor(Math.random() * players.length)]
+  const [targetWord, setTargetWord] = useState(
+    wordList[Math.floor(Math.random() * wordList.length)] || ""
   );
+  const storageKey = useMemo(() => `fw-stats-v1-${mode}`, [mode]);
   const [stats, setStats] = useState<Stats>(() => {
     if (typeof window === "undefined") {
-      return { guesses: Array(MAX_TRIES).fill(0), losses: 0 };
+      return {
+        guesses: Array(MAX_TRIES).fill(0),
+        losses: 0,
+        currentStreak: 0,
+        bestStreak: 0,
+      };
     }
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = localStorage.getItem(storageKey);
       if (stored) {
         const parsed = JSON.parse(stored) as Stats;
         if (
@@ -62,16 +80,71 @@ const FootballWordle: React.FC = () => {
           parsed.guesses.length === MAX_TRIES &&
           typeof parsed.losses === "number"
         ) {
-          return parsed;
+          if (
+            typeof parsed.currentStreak === "number" &&
+            typeof parsed.bestStreak === "number"
+          ) {
+            return parsed;
+          }
+          return {
+            guesses: parsed.guesses,
+            losses: parsed.losses,
+            currentStreak: 0,
+            bestStreak: 0,
+          };
         }
       }
     } catch {
       // ignore parse errors and use defaults
     }
-    return { guesses: Array(MAX_TRIES).fill(0), losses: 0 };
+    return {
+      guesses: Array(MAX_TRIES).fill(0),
+      losses: 0,
+      currentStreak: 0,
+      bestStreak: 0,
+    };
   });
 
-  const normalizedTarget = targetPlayer.toUpperCase();
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const stored = localStorage.getItem(storageKey);
+      if (stored) {
+        const parsed = JSON.parse(stored) as Stats;
+        if (
+          Array.isArray(parsed.guesses) &&
+          parsed.guesses.length === MAX_TRIES &&
+          typeof parsed.losses === "number"
+        ) {
+          setStats({
+            guesses: parsed.guesses,
+            losses: parsed.losses,
+            currentStreak: parsed.currentStreak ?? 0,
+            bestStreak: parsed.bestStreak ?? 0,
+          });
+          return;
+        }
+      }
+    } catch {
+      // ignore
+    }
+    setStats({
+      guesses: Array(MAX_TRIES).fill(0),
+      losses: 0,
+      currentStreak: 0,
+      bestStreak: 0,
+    });
+  }, [storageKey]);
+
+  useEffect(() => {
+    setTargetWord(wordList[Math.floor(Math.random() * wordList.length)] || "");
+    setGuesses([]);
+    setCurrentGuess("");
+    setGameStatus("playing");
+    setShowStats(false);
+  }, [mode, wordList]);
+
+  const normalizedTarget = (targetWord || "").toUpperCase();
   const WORD_LENGTH = normalizedTarget.length;
   const MAX_ROW_WIDTH_PX = 480;
   const TILE_GAP_PX = 6;
@@ -156,8 +229,8 @@ const FootballWordle: React.FC = () => {
   const maxGuessCount = Math.max(...stats.guesses, 1);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
-  }, [stats]);
+    localStorage.setItem(storageKey, JSON.stringify(stats));
+  }, [stats, storageKey]);
 
   useEffect(() => {
     if (gameStatus === "playing") return;
@@ -166,6 +239,8 @@ const FootballWordle: React.FC = () => {
       const next: Stats = {
         guesses: [...prev.guesses],
         losses: prev.losses,
+        currentStreak: prev.currentStreak,
+        bestStreak: prev.bestStreak,
       };
 
       if (gameStatus === "won") {
@@ -173,8 +248,11 @@ const FootballWordle: React.FC = () => {
         if (idx >= 0 && idx < MAX_TRIES) {
           next.guesses[idx] += 1;
         }
+        next.currentStreak = prev.currentStreak + 1;
+        next.bestStreak = Math.max(prev.bestStreak, next.currentStreak);
       } else if (gameStatus === "lost") {
         next.losses += 1;
+        next.currentStreak = 0;
       }
 
       return next;
@@ -301,7 +379,7 @@ const FootballWordle: React.FC = () => {
   };
 
   const handleNewGame = () => {
-    setTargetPlayer(players[Math.floor(Math.random() * players.length)]);
+    setTargetWord(wordList[Math.floor(Math.random() * wordList.length)] || "");
     setGuesses([]);
     setCurrentGuess("");
     setGameStatus("playing");
@@ -315,15 +393,18 @@ const FootballWordle: React.FC = () => {
     gameStatus === "won"
       ? `You guessed ${normalizedTarget} in ${guesses.length} tries!`
       : gameStatus === "lost"
-      ? `The player was ${normalizedTarget}. Better luck next time!`
-      : "Guess the football player!";
+      ? `The answer was ${normalizedTarget}. Better luck next time!`
+      : `Guess the football ${mode === "teams" ? "team" : "player"}!`;
 
   return (
     <div className="fw-page">
       <header className="fw-header">
-        <Header />
+        <Header
+          modeLabel={mode === "teams" ? "team" : "player"}
+          onBack={onBack}
+        />
         {/* Top banner ad (good for desktop and mobile) */}
-        <AdSlot id="top-banner" label="Top banner ad" />
+        {/* <AdSlot id="top-banner" label="Top banner ad" /> */}
       </header>
 
       <main className="fw-main">
@@ -444,6 +525,14 @@ const FootballWordle: React.FC = () => {
                 <span className="fw-stat-number">{stats.losses}</span>
                 <span className="fw-stat-label">Losses</span>
               </div>
+              <div className="fw-stat-card">
+                <span className="fw-stat-number">{stats.currentStreak}</span>
+                <span className="fw-stat-label">Current streak</span>
+              </div>
+              <div className="fw-stat-card">
+                <span className="fw-stat-number">{stats.bestStreak}</span>
+                <span className="fw-stat-label">Best streak</span>
+              </div>
             </div>
 
             <div className="fw-distribution">
@@ -453,16 +542,11 @@ const FootballWordle: React.FC = () => {
               <div className="fw-distribution__list">
                 {stats.guesses.map((count, idx) => {
                   const width = totalSolved
-                    ? Math.max(
-                        10,
-                        Math.round((count / maxGuessCount) * 100)
-                      )
+                    ? Math.max(10, Math.round((count / maxGuessCount) * 100))
                     : 10;
                   return (
                     <div className="fw-distribution__row" key={idx}>
-                      <span className="fw-distribution__label">
-                        {idx + 1}
-                      </span>
+                      <span className="fw-distribution__label">{idx + 1}</span>
                       <div className="fw-distribution__bar-wrapper">
                         <div
                           className="fw-distribution__bar"
