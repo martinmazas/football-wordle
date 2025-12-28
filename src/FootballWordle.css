@@ -203,19 +203,10 @@
 /* Row width = sum of tiles (content-based), not 100% */
 .fw-row {
   display: grid;
-  grid-template-columns: repeat(
-    var(--fw-word-length, 5),
-    minmax(
-      0,
-      min(
-        var(--fw-tile-size, 44px),
-        calc(
-          (100% - (var(--fw-word-length, 5) - 1) * var(--fw-tile-gap, 6px)) /
-            var(--fw-word-length, 5)
-        )
-      )
-    )
-  );
+  grid-template-columns: repeat(var(--fw-word-length, 5),
+      minmax(0,
+        min(var(--fw-tile-size, 44px),
+          calc((100% - (var(--fw-word-length, 5) - 1) * var(--fw-tile-gap, 6px)) / var(--fw-word-length, 5)))));
   gap: var(--fw-tile-gap, 6px);
   width: 100%;
   max-width: 100%;
@@ -872,6 +863,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .fw-landing__hero-card {
@@ -881,6 +873,7 @@
   border: 1px solid rgba(148, 163, 184, 0.35);
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(15, 23, 42, 0.8));
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  margin: 0 auto;
 }
 
 .fw-landing__hero-label {
@@ -903,6 +896,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .fw-landing__hero-img img {
