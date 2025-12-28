@@ -516,8 +516,8 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
             </div>
 
             <p className="fw-intro-text">
-              You have 6 tries to guess the football player. Type or tap letters,
-              then press enter to submit.
+              You have 6 tries to guess the football player. Type or tap
+              letters, then press enter to submit.
             </p>
 
             <div className="fw-intro-steps">
