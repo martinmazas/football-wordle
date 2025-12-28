@@ -19,8 +19,8 @@ const App = () => {
               <span className="fw-landing__tag">Free game</span>
             </div>
             <nav className="fw-landing__nav-links">
-              <a href="#como-jugar">How to play</a>
-              <a href="#caracteristicas">Features</a>
+              <a href="#how-to-play">How to play</a>
+              <a href="#features">Features</a>
               <a href="#faq">FAQ</a>
             </nav>
             <div className="fw-landing__nav-cta">
@@ -34,12 +34,12 @@ const App = () => {
                 className="fw-button fw-button--sm"
                 onClick={() => setMode("players")}
               >
-                Play players
+                Guess players
               </button>
             </div>
           </header>
 
-          <section className="fw-landing__hero" id="inicio">
+          <section className="fw-landing__hero" id="start">
             <div className="fw-landing__hero-copy">
               <div className="fw-landing__pill">
                 Football Wordle in English · No sign-up
@@ -62,7 +62,7 @@ const App = () => {
                 >
                   Guess clubs
                 </button>
-                <a className="fw-landing__link" href="#como-jugar">
+                <a className="fw-landing__link" href="#how-to-play">
                   See how it works
                 </a>
               </div>
@@ -76,15 +76,15 @@ const App = () => {
 
             <div className="fw-landing__hero-visual">
               <div className="fw-landing__hero-card">
-                <div className="fw-landing__hero-label">Vista previa</div>
+                <div className="fw-landing__hero-label">Preview</div>
                 <div
                   className="fw-landing__hero-img"
                   role="img"
-                  aria-label="Vista previa del juego Football Wordle"
+                  aria-label="Football Wordle game preview"
                 >
                   <img
                     src={previewImg}
-                    alt="Vista previa del juego Football Wordle"
+                    alt="Football Wordle game preview"
                     loading="lazy"
                   />
                 </div>
@@ -96,7 +96,7 @@ const App = () => {
             </div>
           </section>
 
-          <section className="fw-section fw-section--panel" id="como-jugar">
+          <section className="fw-section fw-section--panel" id="how-to-play">
             <div className="fw-section__header">
               <p className="fw-eyebrow">Quick guide</p>
               <h2>How to play in under a minute</h2>
@@ -148,7 +148,7 @@ const App = () => {
             </div>
           </section>
 
-          <section className="fw-section" id="caracteristicas">
+          <section className="fw-section" id="features">
             <div className="fw-section__header">
               <p className="fw-eyebrow">Useful content</p>
               <h2>Built to meet policies and add value</h2>
