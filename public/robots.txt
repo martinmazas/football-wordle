@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wordlefootball.netlify.app/sitemap.xml

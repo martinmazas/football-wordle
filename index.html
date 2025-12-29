@@ -4,28 +4,83 @@
 <head>
   <meta charset="UTF-8" />
 
-  <!-- Vite: better as absolute path -->
-  <link rel="icon" type="image/png" href="/src/images/ball.png" />
+  <!-- Favicon / icons (place these in /public for Vite) -->
+  <link rel="icon" type="image/png" href="/ball.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Football Wordle - Guess Players & Teams in 6 Tries</title>
+  <!-- Primary SEO -->
+  <title>Football Wordle — Guess Players & Teams in 6 Tries</title>
   <meta name="description"
-    content="Play Football Wordle online — a football guessing game inspired by Wordle. Guess players or teams in 6 tries, track your stats, and keep your streak." />
+    content="Play Football Wordle online — a fast Wordle-style football guessing game. Guess players or teams in 6 tries, track stats, and keep your streak on mobile or desktop." />
   <link rel="canonical" href="https://wordlefootball.netlify.app/" />
 
-  <meta property="og:title" content="Football Wordle - Guess the Player or Team" />
-  <meta property="og:description"
-    content="Guess the football player or club in 6 tries using color hints. Mobile-friendly and fast rounds." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://wordlefootball.netlify.app/" />
+  <!-- Crawling / indexing -->
+  <meta name="robots" content="index,follow,max-image-preview:large" />
 
+  <!-- Theme (nice for mobile UI) -->
+  <meta name="theme-color" content="#050816" />
 
-  <!-- AdSense account verification (ok to keep) -->
+  <!-- AdSense account verification -->
   <meta name="google-adsense-account" content="ca-pub-6840620846200583" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Football Wordle",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Web",
+        "url": "https://wordlefootball.netlify.app/",
+        "description": "Wordle-style football guessing game. Guess players or teams in 6 tries, track stats and streaks.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    </script>
 </head>
 
 <body>
+  <!-- Helps both SEO + AdSense review for SPAs -->
+  <noscript>
+    <main style="max-width:780px;margin:24px auto;padding:0 16px;font-family:system-ui;line-height:1.6;">
+      <h1>Football Wordle</h1>
+
+      <p>
+        <strong>Football Wordle</strong> is a free Wordle-style football guessing game.
+        Guess football players or teams in <strong>6 tries</strong> using color hints,
+        just like the original Wordle — but for real football fans.
+      </p>
+
+      <p>
+        Each round challenges your knowledge of world football, from famous players to iconic clubs
+        across Europe, the Americas, MLS, and beyond. Play instantly on mobile or desktop and track
+        your stats and streak locally.
+      </p>
+
+      <h2>How to play Football Wordle</h2>
+      <ol>
+        <li>Choose a mode: <strong>Players</strong> or <strong>Teams</strong>.</li>
+        <li>Type your guess using your keyboard (or on-screen keyboard on mobile).</li>
+        <li>Submit each guess and read the color hints.</li>
+        <li>
+          Green means correct letter and position, yellow means the letter is in the word, and red means it’s not.
+        </li>
+        <li>You have 6 tries to guess the correct football player or club.</li>
+      </ol>
+
+      <h2>FAQ</h2>
+      <p><strong>Is Football Wordle free?</strong> Yes, it’s completely free to play in your browser.</p>
+      <p><strong>Is this the official Wordle?</strong> No. This is an independent football guessing game inspired by
+        Wordle.</p>
+      <p><strong>Does it save stats?</strong> Yes, stats and streaks are saved locally in your browser.</p>
+
+      <p style="opacity:.75;margin-top:16px;">
+        Tip: Enable JavaScript to play the full interactive game.
+      </p>
+    </main>
+  </noscript>
+
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
