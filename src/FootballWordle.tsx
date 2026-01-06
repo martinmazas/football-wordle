@@ -59,9 +59,11 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
   const [showStats, setShowStats] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const mobileInputRef = useRef<HTMLInputElement | null>(null);
-  const [targetWord, setTargetWord] = useState(
-    wordList[Math.floor(Math.random() * wordList.length)] || ""
-  );
+  const [targetWord, setTargetWord] = useState("");
+  const wordleApiBase = import.meta.env.PROD
+    ? import.meta.env.VITE_PRODUCTION_SERVER
+    : "http://localhost:8080";
+
   const storageKey = useMemo(() => `fw-stats-v1-${mode}`, [mode]);
   const [stats, setStats] = useState<Stats>(() => {
     if (typeof window === "undefined") {
@@ -106,6 +108,17 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
     };
   });
 
+  const sendNewGamePing = useCallback(() => {
+    if (typeof fetch === "undefined") return;
+    fetch(`${wordleApiBase}/api/wordle`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event: "new_game" }),
+    }).catch(() => {
+      // ignore network errors while testing
+    });
+  }, [wordleApiBase]);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
@@ -137,13 +150,27 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
     });
   }, [storageKey]);
 
-  useEffect(() => {
+  const startNewGame = useCallback(() => {
     setTargetWord(wordList[Math.floor(Math.random() * wordList.length)] || "");
     setGuesses([]);
     setCurrentGuess("");
     setGameStatus("playing");
     setShowStats(false);
-  }, [mode, wordList]);
+    sendNewGamePing();
+  }, [sendNewGamePing, wordList]);
+
+  const lastInitRef = useRef<{ mode: GameMode; wordList: string[] } | null>(
+    null
+  );
+
+  useEffect(() => {
+    const last = lastInitRef.current;
+    if (last && last.mode === mode && last.wordList === wordList) {
+      return;
+    }
+    lastInitRef.current = { mode, wordList };
+    startNewGame();
+  }, [mode, startNewGame, wordList]);
 
   const normalizedTarget = (targetWord || "").toUpperCase();
   const WORD_LENGTH = normalizedTarget.length;
@@ -381,12 +408,8 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
   };
 
   const handleNewGame = () => {
-    setTargetWord(wordList[Math.floor(Math.random() * wordList.length)] || "");
-    setGuesses([]);
-    setCurrentGuess("");
-    setGameStatus("playing");
+    startNewGame();
     setShowIntro(false);
-    setShowStats(false);
     if (isMobile) {
       mobileInputRef.current?.focus();
     }
