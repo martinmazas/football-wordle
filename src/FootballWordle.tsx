@@ -60,7 +60,9 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
   const [isMobile, setIsMobile] = useState(false);
   const mobileInputRef = useRef<HTMLInputElement | null>(null);
   const [targetWord, setTargetWord] = useState("");
-  const wordleApiBase = import.meta.env.PROD ? "" : "http://localhost:8080";
+  const wordleApiBase = import.meta.env.PROD
+    ? "https://football-grid-edd30e867195.herokuapp.com"
+    : "http://localhost:8080";
 
   const storageKey = useMemo(() => `fw-stats-v1-${mode}`, [mode]);
   const [stats, setStats] = useState<Stats>(() => {
