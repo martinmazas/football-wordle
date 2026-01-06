@@ -60,8 +60,11 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
   const [isMobile, setIsMobile] = useState(false);
   const mobileInputRef = useRef<HTMLInputElement | null>(null);
   const [targetWord, setTargetWord] = useState("");
+  const envProdBase = (import.meta.env.VITE_PRODUCTION_SERVER as
+    | string
+    | undefined)?.trim();
   const wordleApiBase = import.meta.env.PROD
-    ? import.meta.env.VITE_PRODUCTION_SERVER
+    ? envProdBase || ""
     : "http://localhost:8080";
 
   const storageKey = useMemo(() => `fw-stats-v1-${mode}`, [mode]);
@@ -110,6 +113,7 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
 
   const sendNewGamePing = useCallback(() => {
     if (typeof fetch === "undefined") return;
+    if (!wordleApiBase) return;
     fetch(`${wordleApiBase}/api/wordle`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
