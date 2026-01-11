@@ -19,8 +19,10 @@ const App = () => {
               <span className="fw-landing__tag">Free game</span>
             </div>
             <nav className="fw-landing__nav-links">
+              <a href="#about">About</a>
               <a href="#how-to-play">How to play</a>
               <a href="#features">Features</a>
+              <a href="#policy">Policy</a>
               <a href="#faq">FAQ</a>
             </nav>
             <div className="fw-landing__nav-cta">
@@ -93,6 +95,35 @@ const App = () => {
                   steps: you play instantly.
                 </p>
               </div>
+            </div>
+          </section>
+
+          <section className="fw-section" id="about">
+            <div className="fw-section__header">
+              <p className="fw-eyebrow">About the project</p>
+              <h2>Built by football fans for daily play</h2>
+              <p className="fw-section__lead">
+                We curate names manually, update them weekly, and write every explanation you read here. The goal is to
+                offer a clean, policy-friendly word game that feels current with each football season.
+              </p>
+            </div>
+
+            <div className="fw-feature-grid">
+              <article className="fw-feature">
+                <h3>Fresh lists</h3>
+                <p>Players include recent transfers and rising talents; clubs cover top-flight leagues and continental
+                  competitions.</p>
+              </article>
+              <article className="fw-feature">
+                <h3>Daily &amp; rapid modes</h3>
+                <p>Use “Guess players” for the daily footballer, or “Guess clubs” for a quick training round any time of
+                  day.</p>
+              </article>
+              <article className="fw-feature">
+                <h3>Editorial notes</h3>
+                <p>We document changes in the FAQ and highlight tricky names (accents, short names, common nicknames) so
+                  you know what to expect.</p>
+              </article>
             </div>
           </section>
 
@@ -196,6 +227,58 @@ const App = () => {
                   Defined placements for ads that do not block gameplay, aligned with placement policies.
                 </p>
               </article>
+              <article className="fw-feature">
+                <h3>Fair play</h3>
+                <p>
+                  Names come from public league rosters; we avoid obscure youth players so rounds stay fair for casual
+                  fans.
+                </p>
+              </article>
+              <article className="fw-feature">
+                <h3>Changelog</h3>
+                <p>
+                  We keep a short record of list updates and UI tweaks so reviewers and players know what changed and
+                  when.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section className="fw-section fw-section--panel" id="policy">
+            <div className="fw-section__header">
+              <p className="fw-eyebrow">Privacy &amp; ads</p>
+              <h2>Transparent data and monetization policy</h2>
+              <p className="fw-section__lead">
+                We keep things simple: no accounts, no personal data collection, and ads placed away from core actions.
+                Here is exactly what we do.
+              </p>
+            </div>
+
+            <div className="fw-steps">
+              <article className="fw-step">
+                <div className="fw-step__number">1</div>
+                <div>
+                  <h3>Data stored locally</h3>
+                  <p>We save streaks and stats in your browser only. Clearing your cache removes them. Nothing leaves
+                    your device.</p>
+                </div>
+              </article>
+              <article className="fw-step">
+                <div className="fw-step__number">2</div>
+                <div>
+                  <h3>Ads with room to play</h3>
+                  <p>AdSense slots are separated from the keyboard and board to avoid accidental taps and layout shift on
+                    mobile.</p>
+                </div>
+              </article>
+              <article className="fw-step">
+                <div className="fw-step__number">3</div>
+                <div>
+                  <h3>No tracking pixels</h3>
+                  <p>We do not embed social pixels or custom trackers. Only the game code and standard analytics for
+                    performance.</p>
+                </div>
+              </article>
             </div>
           </section>
 
@@ -230,8 +313,14 @@ const App = () => {
                   policies.
                 </p>
               </div>
+              <div className="fw-faq__item">
+                <h3>How often do you update names?</h3>
+                <p>Weekly during the season and after major transfer windows. We remove injured long-term players to keep
+                  rounds fair.</p>
+              </div>
             </div>
           </section>
+
         </div>
       </div>
     );
