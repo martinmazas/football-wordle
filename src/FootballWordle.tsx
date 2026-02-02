@@ -60,9 +60,6 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
   const [isMobile, setIsMobile] = useState(false);
   const mobileInputRef = useRef<HTMLInputElement | null>(null);
   const [targetWord, setTargetWord] = useState("");
-  const wordleApiBase = import.meta.env.PROD
-    ? "https://football-grid-edd30e867195.herokuapp.com"
-    : "http://localhost:8080";
 
   const storageKey = useMemo(() => `fw-stats-v1-${mode}`, [mode]);
   const [stats, setStats] = useState<Stats>(() => {
@@ -108,17 +105,6 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
     };
   });
 
-  const sendNewGamePing = useCallback(() => {
-    if (typeof fetch === "undefined") return;
-    fetch(`${wordleApiBase}/api/wordle`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: "new_game" }),
-    }).catch(() => {
-      // ignore network errors while testing
-    });
-  }, [wordleApiBase]);
-
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
@@ -156,8 +142,7 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
     setCurrentGuess("");
     setGameStatus("playing");
     setShowStats(false);
-    sendNewGamePing();
-  }, [sendNewGamePing, wordList]);
+  }, [wordList]);
 
   const lastInitRef = useRef<{ mode: GameMode; wordList: string[] } | null>(
     null
