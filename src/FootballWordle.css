@@ -42,6 +42,12 @@
   margin-bottom: 0.75rem;
 }
 
+.fw-header-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
 .fw-title {
   font-size: clamp(1.4rem, 3vw, 1.8rem);
   letter-spacing: 0.12em;
@@ -516,6 +522,137 @@
   gap: 0.75rem;
 }
 
+.fw-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.fw-nav-link {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  color: var(--fw-text);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.fw-nav-link:hover {
+  color: #e0f2fe;
+  border-color: rgba(56, 189, 248, 0.55);
+  transform: translateY(-1px);
+}
+
+.fw-site-links {
+  width: min(1080px, 92vw);
+  margin: 0 auto 2.5rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.fw-site-links__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  align-items: center;
+}
+
+.fw-site-links__copy h2 {
+  margin: 0.2rem 0 0.5rem;
+}
+
+.fw-site-links__copy p {
+  margin: 0.15rem 0;
+  color: var(--fw-text-muted);
+  line-height: 1.6;
+}
+
+.fw-site-links__eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  color: rgba(148, 163, 184, 0.9);
+  font-weight: 700;
+}
+
+.fw-site-links__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.fw-inline-link {
+  color: #e0f2fe;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fw-info {
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) 1fr;
+  gap: 1rem;
+}
+
+.fw-info__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fw-info__tab {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: var(--fw-text);
+  padding: 0.55rem 0.8rem;
+  border-radius: 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.fw-info__tab--active {
+  border-color: rgba(34, 197, 94, 0.8);
+  box-shadow: 0 10px 24px rgba(34, 197, 94, 0.15);
+}
+
+.fw-info__content {
+  background: rgba(15, 23, 42, 0.7);
+  border-radius: 0.9rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  color: var(--fw-text-muted);
+  line-height: 1.6;
+}
+
+.fw-info__panel h3 {
+  margin: 0 0 0.6rem;
+  color: var(--fw-text);
+}
+
+.fw-info__panel p,
+.fw-info__panel li {
+  margin: 0.3rem 0;
+}
+
+.fw-info__panel ol,
+.fw-info__panel ul {
+  padding-left: 1.1rem;
+}
+
+.fw-modal__content--info {
+  width: min(760px, 94vw);
+}
+
 
 .fw-footer {
   position: sticky;
@@ -565,6 +702,14 @@
     flex-wrap: wrap;
   }
 
+  .fw-header-nav {
+    width: 100%;
+  }
+
+  .fw-nav-link {
+    font-size: 0.75rem;
+  }
+
   .fw-title {
     font-size: clamp(1.25rem, 6vw, 1.5rem);
   }
@@ -584,6 +729,20 @@
 
   .fw-message {
     font-size: 0.82rem;
+  }
+
+  .fw-site-links {
+    padding: 1rem 1.1rem;
+    margin: 0.5rem auto 2rem;
+  }
+
+  .fw-info {
+    grid-template-columns: 1fr;
+  }
+
+  .fw-info__nav {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .fw-board {
@@ -913,6 +1072,52 @@
   font-size: 0.95rem;
 }
 
+.fw-landing__footer {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.7);
+}
+
+.fw-landing__footer-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.fw-landing__footer-main h2 {
+  margin: 0 0 0.5rem;
+}
+
+.fw-landing__footer-main p {
+  margin: 0.2rem 0;
+  color: var(--fw-text-muted);
+}
+
+.fw-landing__footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.fw-landing__footer-links a {
+  color: #e0f2fe;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.fw-landing__footer-links a:hover {
+  text-decoration: underline;
+}
+
+.fw-landing__footer-note {
+  margin: 1.1rem 0 0;
+  color: var(--fw-text-muted);
+  font-size: 0.9rem;
+}
+
 .fw-section {
   margin-top: 1.4rem;
   padding: 1.2rem 1.1rem;
@@ -1104,5 +1309,9 @@
 
   .fw-section {
     padding: 1rem;
+  }
+
+  .fw-landing__footer {
+    padding: 1.1rem;
   }
 }

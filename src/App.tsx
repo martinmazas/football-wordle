@@ -321,6 +321,37 @@ const App = () => {
             </div>
           </section>
 
+          <footer className="fw-landing__footer" id="contact">
+            <div className="fw-landing__footer-main">
+              <div>
+                <h2>Contact &amp; updates</h2>
+                <p>
+                  Football Wordle is a fan-made game with weekly list updates
+                  during the season. Last updated February 4, 2026.
+                </p>
+                <p>
+                  Email:{" "}
+                  <a
+                    className="fw-inline-link"
+                    href="mailto:webgames594@gmail.com"
+                  >
+                    webgames594@gmail.com
+                  </a>
+                </p>
+              </div>
+              <div className="fw-landing__footer-links">
+                <a href="#about">About</a>
+                <a href="#how-to-play">How to play</a>
+                <a href="#features">Features</a>
+                <a href="#policy">Privacy &amp; ads</a>
+                <a href="#faq">FAQ</a>
+              </div>
+            </div>
+            <p className="fw-landing__footer-note">
+              Independent project. No association with Wordle or official
+              leagues.
+            </p>
+          </footer>
         </div>
       </div>
     );

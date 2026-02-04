@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import type { CSSProperties } from "react";
 import "./FootballWordle.css";
-import Header from "./Components/Header";
+import Header, { type InfoSection } from "./Components/Header";
 
 const MAX_TRIES = 6;
 
@@ -57,6 +57,7 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
   );
   const [showIntro, setShowIntro] = useState(true);
   const [showStats, setShowStats] = useState(false);
+  const [infoSection, setInfoSection] = useState<InfoSection | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const mobileInputRef = useRef<HTMLInputElement | null>(null);
   const [targetWord, setTargetWord] = useState("");
@@ -413,6 +414,7 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
         <Header
           modeLabel={mode === "teams" ? "team" : "player"}
           onBack={onBack}
+          onOpenInfo={(section) => setInfoSection(section)}
         />
         {/* Top banner ad (good for desktop and mobile) */}
         {/* <AdSlot id="top-banner" label="Top banner ad" /> */}
@@ -496,6 +498,52 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
           {/* <AdSlot id="sidebar-rect-2" label="Sidebar ad 2" /> */}
         </aside>
       </main>
+
+      <section className="fw-site-links" aria-label="Site information">
+        <div className="fw-site-links__content">
+          <div className="fw-site-links__copy">
+            <p className="fw-site-links__eyebrow">More about this game</p>
+            <h2>Helpful info for players and reviewers</h2>
+            <p>
+              Football Wordle is a free, independent word game for fans. We do
+              not collect personal data; stats live in your browser only. Last
+              updated February 4, 2026.
+            </p>
+          </div>
+          <div className="fw-site-links__actions">
+            <button
+              className="fw-button fw-button--ghost fw-button--sm"
+              onClick={() => setInfoSection("about")}
+            >
+              About
+            </button>
+            <button
+              className="fw-button fw-button--ghost fw-button--sm"
+              onClick={() => setInfoSection("how")}
+            >
+              How to play
+            </button>
+            <button
+              className="fw-button fw-button--ghost fw-button--sm"
+              onClick={() => setInfoSection("policy")}
+            >
+              Privacy & ads
+            </button>
+            <button
+              className="fw-button fw-button--ghost fw-button--sm"
+              onClick={() => setInfoSection("faq")}
+            >
+              FAQ
+            </button>
+            <button
+              className="fw-button fw-button--ghost fw-button--sm"
+              onClick={() => setInfoSection("contact")}
+            >
+              Contact
+            </button>
+          </div>
+        </div>
+      </section>
 
       {/* Sticky footer ad (especially strong on mobile) */}
       <footer className="fw-footer">
@@ -659,6 +707,152 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
               >
                 Play again
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {infoSection && (
+        <div className="fw-modal" role="dialog" aria-modal="true">
+          <div
+            className="fw-modal__backdrop"
+            onClick={() => setInfoSection(null)}
+          />
+          <div className="fw-modal__content fw-modal__content--info">
+            <div className="fw-modal__header">
+              <div>
+                <p className="fw-modal__eyebrow">Site guide</p>
+                <h2 className="fw-modal__title">Football Wordle information</h2>
+              </div>
+              <button
+                className="fw-modal__close"
+                aria-label="Close information"
+                onClick={() => setInfoSection(null)}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="fw-info">
+              <nav className="fw-info__nav" aria-label="Information sections">
+                {[
+                  { id: "about", label: "About" },
+                  { id: "how", label: "How to play" },
+                  { id: "policy", label: "Privacy & ads" },
+                  { id: "faq", label: "FAQ" },
+                  { id: "contact", label: "Contact" },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    className={`fw-info__tab ${
+                      infoSection === item.id ? "fw-info__tab--active" : ""
+                    }`.trim()}
+                    aria-current={infoSection === item.id ? "page" : undefined}
+                    onClick={() =>
+                      setInfoSection(item.id as InfoSection)
+                    }
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+
+              <div className="fw-info__content">
+                {infoSection === "about" && (
+                  <div className="fw-info__panel">
+                    <h3>About Football Wordle</h3>
+                    <p>
+                      Built by football fans, this game focuses on recognizable
+                      names from major leagues. We update the lists regularly
+                      and keep the rules short and clear so every round feels
+                      fair.
+                    </p>
+                    <p>
+                      The experience is ad-supported, but gameplay always stays
+                      front and center.
+                    </p>
+                  </div>
+                )}
+
+                {infoSection === "how" && (
+                  <div className="fw-info__panel">
+                    <h3>How to play</h3>
+                    <ol>
+                      <li>Choose players or clubs.</li>
+                      <li>Type a name and submit.</li>
+                      <li>
+                        Green = correct spot, yellow = in the word, red = not in
+                        the word.
+                      </li>
+                      <li>You have 6 tries to solve it.</li>
+                    </ol>
+                  </div>
+                )}
+
+                {infoSection === "policy" && (
+                  <div className="fw-info__panel">
+                    <h3>Privacy & ads policy</h3>
+                    <ul>
+                      <li>
+                        No personal data collection. Only local storage for
+                        streaks.
+                      </li>
+                      <li>
+                        No user accounts or forced sign-ups.
+                      </li>
+                      <li>
+                        Ads appear away from core controls to avoid accidental
+                        clicks.
+                      </li>
+                      <li>
+                        No custom tracking pixels or social embeds.
+                      </li>
+                    </ul>
+                    <p>Policy updated February 4, 2026.</p>
+                  </div>
+                )}
+
+                {infoSection === "faq" && (
+                  <div className="fw-info__panel">
+                    <h3>FAQ</h3>
+                    <p>
+                      <strong>Is it free?</strong> Yes, the game is free to play
+                      in your browser.
+                    </p>
+                    <p>
+                      <strong>Does it work on mobile?</strong> Yes. The layout
+                      and keyboard adapt for phones and tablets.
+                    </p>
+                    <p>
+                      <strong>How do updates work?</strong> Lists are reviewed
+                      weekly during the season and after transfer windows.
+                    </p>
+                  </div>
+                )}
+
+                {infoSection === "contact" && (
+                  <div className="fw-info__panel">
+                    <h3>Contact</h3>
+                    <p>
+                      Have feedback or found a missing name? Email us and we
+                      will review it.
+                    </p>
+                    <p>
+                      Email:{" "}
+                      <a
+                        className="fw-inline-link"
+                        href="mailto:webgames594@gmail.com"
+                      >
+                        webgames594@gmail.com
+                      </a>
+                    </p>
+                    <p>
+                      We respond to genuine feedback and update the FAQ when
+                      common questions come in.
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
