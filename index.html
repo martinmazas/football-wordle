@@ -55,6 +55,10 @@
   <!-- AdSense account verification -->
   <meta name="google-adsense-account" content="ca-pub-6840620846200583" />
 
+  <!-- AdSense loader -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6840620846200583"
+     crossorigin="anonymous"></script>
+
   <!-- Structured Data: WebSite + SearchAction -->
   <script type="application/ld+json">
       {
@@ -145,63 +149,119 @@
 </head>
 
 <body>
-  <!-- SEO + AdSense-friendly fallback for SPAs -->
+  <!-- Static fallback for crawlers and no-JS visitors -->
   <noscript>
-    <main style="max-width:820px;margin:24px auto;padding:0 16px;font-family:system-ui;line-height:1.65;">
-      <header>
-        <h1 style="margin:0 0 8px 0;">
-          Football Wordle (Soccer Wordle) — Guess Players, Clubs & Teams
+    <div style="max-width:860px;margin:0 auto;padding:24px 20px;font-family:system-ui,sans-serif;line-height:1.7;color:#1a1a2e;">
+
+      <nav style="margin-bottom:24px;">
+        <a href="#about" style="margin-right:16px;">About</a>
+        <a href="#how-to-play" style="margin-right:16px;">How to play</a>
+        <a href="#faq" style="margin-right:16px;">FAQ</a>
+        <a href="/privacy-policy.html">Privacy policy</a>
+      </nav>
+
+      <header style="margin-bottom:32px;">
+        <h1 style="font-size:2rem;margin:0 0 10px;">
+          Football Wordle — Guess Football Players &amp; Clubs in 6 Tries
         </h1>
-        <p style="margin:0 0 14px 0;opacity:.9;">
-          <strong>Football Wordle</strong> is a free <strong>Wordle-style football (soccer) guessing game</strong>.
-          Guess <strong>football players</strong>, <strong>clubs</strong>, or <strong>teams</strong> in
-          <strong>6 tries</strong> using color hints. Play instantly on mobile or desktop.
+        <p style="font-size:1.1rem;margin:0 0 16px;">
+          <strong>Football Wordle</strong> is a free <strong>Wordle-style football guessing game</strong>.
+          Guess famous <strong>football players</strong> or <strong>clubs</strong> in up to
+          <strong>6 tries</strong> with color-coded letter hints. No sign-up, no download — plays instantly
+          in any browser on mobile or desktop.
+        </p>
+        <p style="font-style:italic;font-size:.9rem;">
+          Enable JavaScript to play the full interactive game.
         </p>
       </header>
 
-      <section>
-        <h2>Play a Wordle-style football guessing game</h2>
+      <section id="about" style="margin-bottom:32px;">
+        <h2>About Football Wordle</h2>
         <p>
-          If you like <strong>Wordle</strong> and love <strong>football (soccer)</strong>, this is your daily challenge.
-          Test your knowledge of <strong>world football</strong> — from legendary players to iconic clubs — and use
-          <strong>green/yellow/red</strong> letter hints to solve the puzzle.
+          Built by football fans, Football Wordle covers recognizable names from the world’s top leagues —
+          Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, and more. Lists are reviewed weekly
+          during the season and updated after every major transfer window so each round stays relevant.
         </p>
-        <ul>
-          <li><strong>Guess football players</strong> (famous and historic names).</li>
-          <li><strong>Guess clubs & teams</strong> from top leagues and competitions.</li>
-          <li><strong>6 tries</strong> with clear color feedback, like the original Wordle.</li>
-          <li><strong>Free</strong>, fast loading, and <strong>mobile-friendly</strong>.</li>
-        </ul>
+        <p>
+          There are two modes: <strong>Guess players</strong> (famous footballers past and present) and
+          <strong>Guess clubs</strong> (top-flight teams and competition participants). Both modes use the
+          same color-hint mechanics as classic Wordle.
+        </p>
+        <p>
+          Your stats and streaks are stored locally in your browser only — nothing leaves your device and
+          no personal data is ever collected or requested.
+        </p>
       </section>
 
-      <section>
+      <section id="how-to-play" style="margin-bottom:32px;">
         <h2>How to play Football Wordle</h2>
         <ol>
-          <li>Select a mode: <strong>Players</strong> or <strong>Teams/Clubs</strong>.</li>
-          <li>Type your guess using your keyboard (or mobile on-screen keyboard).</li>
-          <li>Submit and use the <strong>color hints</strong> to adjust your next guess.</li>
-          <li>
-            <strong>Green</strong> = correct letter + correct position,
-            <strong>Yellow</strong> = letter exists but wrong position,
-            <strong>Red</strong> = letter not in the answer.
+          <li><strong>Choose a mode:</strong> pick <em>Guess players</em> or <em>Guess clubs</em>.</li>
+          <li><strong>Type a name:</strong> use your physical keyboard or the on-screen keyboard on mobile.</li>
+          <li><strong>Submit your guess</strong> and read the color hints on each letter:
+            <ul>
+              <li><strong>Green</strong> — correct letter in the correct position.</li>
+              <li><strong>Yellow</strong> — letter is in the answer but in the wrong position.</li>
+              <li><strong>Red</strong> — letter does not appear in the answer at all.</li>
+            </ul>
           </li>
-          <li>You have <strong>6 tries</strong> to solve it.</li>
+          <li>Use the hints to refine your next guess. You have <strong>6 tries</strong> per round.</li>
+          <li>After each round your stats (win rate, streak, guess distribution) update automatically.</li>
         </ol>
       </section>
 
-      <section>
-        <h2>Football Wordle FAQ</h2>
-        <p><strong>Is Football Wordle free?</strong> Yes, it’s free to play in your browser.</p>
-        <p><strong>Is this the official Wordle?</strong> No. It’s an independent football guessing game inspired by
-          Wordle.</p>
-        <p><strong>Does it save stats?</strong> Yes, your streak and stats can be saved locally in your browser.</p>
-        <p><strong>Does it work on mobile?</strong> Yes — it’s designed to be responsive and easy to play on phones.</p>
+      <section style="margin-bottom:32px;">
+        <h2>Features</h2>
+        <ul>
+          <li>Two game modes: football players and football clubs.</li>
+          <li>Fresh word lists updated weekly with current squad and transfer news.</li>
+          <li>On-screen keyboard optimised for mobile play.</li>
+          <li>Streak and stats tracking saved locally — no account required.</li>
+          <li>Fast load times with Vite and React; no interstitials or forced steps before play.</li>
+          <li>Accessible design with high-contrast colors and ARIA labels throughout.</li>
+          <li>Works on any modern browser — Chrome, Firefox, Safari, Edge.</li>
+        </ul>
       </section>
 
-      <footer style="opacity:.75;margin-top:18px;">
-        Enable JavaScript to play the full interactive game.
+      <section id="faq" style="margin-bottom:32px;">
+        <h2>Frequently asked questions</h2>
+        <dl>
+          <dt><strong>Is Football Wordle free?</strong></dt>
+          <dd>Yes. The game is completely free to play in your browser with no subscription or sign-up.</dd>
+
+          <dt style="margin-top:12px;"><strong>Is this the official Wordle?</strong></dt>
+          <dd>No. Football Wordle is an independent fan project inspired by Wordle. It has no affiliation with
+            the New York Times or any official football league or club.</dd>
+
+          <dt style="margin-top:12px;"><strong>Does it save my progress?</strong></dt>
+          <dd>Yes. Your streak, win rate, and guess distribution are saved in your browser’s local storage.
+            Clearing browser data will reset them.</dd>
+
+          <dt style="margin-top:12px;"><strong>Does it work on mobile?</strong></dt>
+          <dd>Yes. The layout and the on-screen keyboard are designed for phones and tablets of all sizes.</dd>
+
+          <dt style="margin-top:12px;"><strong>How often are the lists updated?</strong></dt>
+          <dd>Lists are reviewed weekly during the football season and after major transfer windows. Long-term
+            injured players may be temporarily removed to keep rounds fair.</dd>
+
+          <dt style="margin-top:12px;"><strong>How is the game funded?</strong></dt>
+          <dd>The game is supported by display advertising. Ads are placed away from the game board and
+            keyboard so they never interrupt gameplay.</dd>
+
+          <dt style="margin-top:12px;"><strong>What data do you collect?</strong></dt>
+          <dd>We collect no personal data. Only your local game stats are stored, and only on your own device.
+            See our <a href="/privacy-policy.html">privacy policy</a> for full details.</dd>
+        </dl>
+      </section>
+
+      <footer style="border-top:1px solid #ddd;padding-top:16px;font-size:.85rem;opacity:.7;">
+        <p>Football Wordle — Independent fan project. Last updated February 2026.</p>
+        <p>
+          <a href="/privacy-policy.html">Privacy policy</a> ·
+          Contact: <a href="mailto:webgames594@gmail.com">webgames594@gmail.com</a>
+        </p>
       </footer>
-    </main>
+    </div>
   </noscript>
 
   <div id="root"></div>
