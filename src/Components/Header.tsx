@@ -1,6 +1,5 @@
 import React from "react";
-
-export type InfoSection = "how" | "about" | "policy" | "faq" | "contact";
+import type { InfoSection } from "../types/game";
 
 interface HeaderProps {
   modeLabel: string;
@@ -18,28 +17,16 @@ const Header: React.FC<HeaderProps> = ({ modeLabel, onBack, onOpenInfo }) => {
       <div className="fw-header-actions">
         {onOpenInfo && (
           <nav className="fw-header-nav" aria-label="Game information">
-            <button
-              className="fw-nav-link"
-              onClick={() => onOpenInfo("how")}
-            >
+            <button className="fw-nav-link" onClick={() => onOpenInfo("how")}>
               How to play
             </button>
-            <button
-              className="fw-nav-link"
-              onClick={() => onOpenInfo("about")}
-            >
+            <button className="fw-nav-link" onClick={() => onOpenInfo("about")}>
               About
             </button>
-            <button
-              className="fw-nav-link"
-              onClick={() => onOpenInfo("policy")}
-            >
+            <button className="fw-nav-link" onClick={() => onOpenInfo("policy")}>
               Privacy & ads
             </button>
-            <button
-              className="fw-nav-link"
-              onClick={() => onOpenInfo("contact")}
-            >
+            <button className="fw-nav-link" onClick={() => onOpenInfo("contact")}>
               Contact
             </button>
           </nav>

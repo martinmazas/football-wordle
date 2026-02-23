@@ -1,353 +1,38 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import type { CSSProperties } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./FootballWordle.css";
-import Header, { type InfoSection } from "./Components/Header";
 
-const MAX_TRIES = 6;
+import Header from "./Components/Header";
+import Board from "./Components/Board";
+import Keyboard from "./Components/Keyboard";
+import SiteLinks from "./Components/SiteLinks";
+import IntroModal from "./Components/modals/IntroModal";
+import StatsModal from "./Components/modals/StatsModal";
+import InfoModal from "./Components/modals/InfoModal";
+import { useGame } from "./hooks/useGame";
+import type { FootballWordleProps, InfoSection } from "./types/game";
 
-type CellStatus = "empty" | "correct" | "present" | "absent";
-
-// interface AdSlotProps {
-//   id: string;
-//   label?: string;
-// }
-
-type GameMode = "players" | "teams";
-
-interface FootballWordleProps {
-  mode: GameMode;
-  wordList: string[];
-  onBack?: () => void;
-}
-
-type Stats = {
-  guesses: number[]; // index 0 => solved in 1, ..., index 5 => solved in 6
-  losses: number;
-  currentStreak: number;
-  bestStreak: number;
-};
-
-/**
- * Simple ad placeholder.
- * Replace <div> with your AdSense / Ad Manager code.
- */
-// const AdSlot: React.FC<AdSlotProps> = ({ id, label }) => {
-//   return (
-//     <div className="ad-slot" data-slot-id={id}>
-//       <span className="ad-label">{label ?? "Ad"}</span>
-//     </div>
-//   );
-// };
-
-const FootballWordle: React.FC<FootballWordleProps> = ({
-  mode,
-  wordList,
-  onBack,
-}) => {
-  const [guesses, setGuesses] = useState<string[]>([]);
-  const [currentGuess, setCurrentGuess] = useState("");
-  const [gameStatus, setGameStatus] = useState<"playing" | "won" | "lost">(
-    "playing"
-  );
+const FootballWordle: React.FC<FootballWordleProps> = ({ mode, wordList, onBack }) => {
   const [showIntro, setShowIntro] = useState(true);
   const [showStats, setShowStats] = useState(false);
   const [infoSection, setInfoSection] = useState<InfoSection | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const mobileInputRef = useRef<HTMLInputElement | null>(null);
-  const [targetWord, setTargetWord] = useState("");
 
-  const storageKey = useMemo(() => `fw-stats-v1-${mode}`, [mode]);
-  const [stats, setStats] = useState<Stats>(() => {
-    if (typeof window === "undefined") {
-      return {
-        guesses: Array(MAX_TRIES).fill(0),
-        losses: 0,
-        currentStreak: 0,
-        bestStreak: 0,
-      };
-    }
-    try {
-      const stored = localStorage.getItem(storageKey);
-      if (stored) {
-        const parsed = JSON.parse(stored) as Stats;
-        if (
-          Array.isArray(parsed.guesses) &&
-          parsed.guesses.length === MAX_TRIES &&
-          typeof parsed.losses === "number"
-        ) {
-          if (
-            typeof parsed.currentStreak === "number" &&
-            typeof parsed.bestStreak === "number"
-          ) {
-            return parsed;
-          }
-          return {
-            guesses: parsed.guesses,
-            losses: parsed.losses,
-            currentStreak: 0,
-            bestStreak: 0,
-          };
-        }
-      }
-    } catch {
-      // ignore parse errors and use defaults
-    }
-    return {
-      guesses: Array(MAX_TRIES).fill(0),
-      losses: 0,
-      currentStreak: 0,
-      bestStreak: 0,
-    };
-  });
+  const {
+    guesses,
+    currentGuess,
+    setCurrentGuess,
+    gameStatus,
+    normalizedTarget,
+    wordLength,
+    stats,
+    keyStatuses,
+    startNewGame,
+    handleKeyPress,
+    getEvaluatedGuess,
+  } = useGame(mode, wordList);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    try {
-      const stored = localStorage.getItem(storageKey);
-      if (stored) {
-        const parsed = JSON.parse(stored) as Stats;
-        if (
-          Array.isArray(parsed.guesses) &&
-          parsed.guesses.length === MAX_TRIES &&
-          typeof parsed.losses === "number"
-        ) {
-          setStats({
-            guesses: parsed.guesses,
-            losses: parsed.losses,
-            currentStreak: parsed.currentStreak ?? 0,
-            bestStreak: parsed.bestStreak ?? 0,
-          });
-          return;
-        }
-      }
-    } catch {
-      // ignore
-    }
-    setStats({
-      guesses: Array(MAX_TRIES).fill(0),
-      losses: 0,
-      currentStreak: 0,
-      bestStreak: 0,
-    });
-  }, [storageKey]);
-
-  const startNewGame = useCallback(() => {
-    setTargetWord(wordList[Math.floor(Math.random() * wordList.length)] || "");
-    setGuesses([]);
-    setCurrentGuess("");
-    setGameStatus("playing");
-    setShowStats(false);
-  }, [wordList]);
-
-  const lastInitRef = useRef<{ mode: GameMode; wordList: string[] } | null>(
-    null
-  );
-
-  useEffect(() => {
-    const last = lastInitRef.current;
-    if (last && last.mode === mode && last.wordList === wordList) {
-      return;
-    }
-    lastInitRef.current = { mode, wordList };
-    startNewGame();
-  }, [mode, startNewGame, wordList]);
-
-  const normalizedTarget = (targetWord || "").toUpperCase();
-  const WORD_LENGTH = normalizedTarget.length;
-  const MAX_ROW_WIDTH_PX = 480;
-  const TILE_GAP_PX = 6;
-  const tileSizePx = Math.min(
-    48,
-    Math.max(
-      12,
-      Math.floor(
-        (MAX_ROW_WIDTH_PX - TILE_GAP_PX * (WORD_LENGTH - 1)) / WORD_LENGTH
-      )
-    )
-  );
-
-  const evaluateGuess = (guess: string): CellStatus[] => {
-    if (guess.length !== WORD_LENGTH) {
-      return Array(WORD_LENGTH).fill("empty");
-    }
-
-    const result: CellStatus[] = Array(WORD_LENGTH).fill("absent");
-    const targetChars = normalizedTarget.split("");
-    const guessChars = guess.split("");
-
-    // First pass: mark correct (green)
-    const remaining: Record<string, number> = {};
-
-    for (let i = 0; i < WORD_LENGTH; i++) {
-      if (guessChars[i] === targetChars[i]) {
-        result[i] = "correct";
-      } else {
-        const ch = targetChars[i];
-        remaining[ch] = (remaining[ch] || 0) + 1;
-      }
-    }
-
-    // Second pass: mark present (yellow) or absent (red)
-    for (let i = 0; i < WORD_LENGTH; i++) {
-      if (result[i] === "correct") continue;
-      const ch = guessChars[i];
-
-      if (remaining[ch] && remaining[ch] > 0) {
-        result[i] = "present";
-        remaining[ch] -= 1;
-      } else {
-        result[i] = "absent";
-      }
-    }
-
-    return result;
-  };
-
-  const keyStatuses = useMemo(() => {
-    const priorities: Record<CellStatus, number> = {
-      empty: 0,
-      absent: 1,
-      present: 2,
-      correct: 3,
-    };
-
-    const statusMap: Record<string, CellStatus> = {};
-
-    guesses.forEach((guess) => {
-      const statuses = evaluateGuess(guess);
-      statuses.forEach((status, idx) => {
-        const letter = guess[idx];
-        const prev = statusMap[letter] ?? "empty";
-        if (priorities[status] > priorities[prev]) {
-          statusMap[letter] = status;
-        }
-      });
-    });
-
-    return statusMap;
-  }, [guesses, normalizedTarget]);
-
-  const totalSolved = useMemo(
-    () => stats.guesses.reduce((sum, n) => sum + n, 0),
-    [stats.guesses]
-  );
-  const totalPlayed = totalSolved + stats.losses;
-  const winRate =
-    totalPlayed === 0 ? 0 : Math.round((totalSolved / totalPlayed) * 100);
-  const maxGuessCount = Math.max(...stats.guesses, 1);
-
-  useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(stats));
-  }, [stats, storageKey]);
-
-  useEffect(() => {
-    if (gameStatus === "playing") return;
-
-    setStats((prev) => {
-      const next: Stats = {
-        guesses: [...prev.guesses],
-        losses: prev.losses,
-        currentStreak: prev.currentStreak,
-        bestStreak: prev.bestStreak,
-      };
-
-      if (gameStatus === "won") {
-        const idx = Math.min(guesses.length, MAX_TRIES) - 1;
-        if (idx >= 0 && idx < MAX_TRIES) {
-          next.guesses[idx] += 1;
-        }
-        next.currentStreak = prev.currentStreak + 1;
-        next.bestStreak = Math.max(prev.bestStreak, next.currentStreak);
-      } else if (gameStatus === "lost") {
-        next.losses += 1;
-        next.currentStreak = 0;
-      }
-
-      return next;
-    });
-
-    setShowStats(true);
-  }, [gameStatus, guesses]);
-  const handleSubmitGuess = useCallback(() => {
-    if (gameStatus !== "playing") return;
-    if (currentGuess.length !== WORD_LENGTH) return;
-
-    const guess = currentGuess.toUpperCase();
-    const nextGuesses = [...guesses, guess];
-    setGuesses(nextGuesses);
-    setCurrentGuess("");
-
-    if (guess === normalizedTarget) {
-      setGameStatus("won");
-    } else if (nextGuesses.length >= MAX_TRIES) {
-      setGameStatus("lost");
-    }
-  }, [currentGuess, gameStatus, guesses, normalizedTarget]);
-
-  const handleKeyPress = useCallback(
-    (key: string) => {
-      if (showIntro) return;
-      if (gameStatus !== "playing") return;
-
-      if (key === "ENTER") {
-        handleSubmitGuess();
-        return;
-      }
-
-      if (key === "BACKSPACE") {
-        setCurrentGuess((prev) => prev.slice(0, -1));
-        return;
-      }
-
-      if (/^[A-Z]$/.test(key) && currentGuess.length < WORD_LENGTH) {
-        setCurrentGuess((prev) => prev + key);
-      }
-    },
-    [currentGuess.length, gameStatus, handleSubmitGuess, showIntro]
-  );
-
-  const handleMobileChange = (value: string) => {
-    if (gameStatus !== "playing") return;
-    const sanitized = value.replace(/[^a-zA-Z]/g, "").toUpperCase();
-    setCurrentGuess(sanitized.slice(0, WORD_LENGTH));
-  };
-
-  const handleMobileKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSubmitGuess();
-    }
-  };
-
-  // Physical keyboard support
-  useEffect(() => {
-    if (isMobile) return;
-
-    const listener = (e: KeyboardEvent) => {
-      const key = e.key.toUpperCase();
-
-      if (key === "ENTER") {
-        e.preventDefault();
-        handleKeyPress("ENTER");
-      } else if (key === "BACKSPACE") {
-        e.preventDefault();
-        handleKeyPress("BACKSPACE");
-      } else if (/^[A-Z]$/.test(key)) {
-        handleKeyPress(key);
-      }
-    };
-
-    window.addEventListener("keydown", listener);
-    return () => window.removeEventListener("keydown", listener);
-  }, [handleKeyPress, isMobile]);
-
-  // Detect mobile to show native keyboard input
+  // Mobile detection
   useEffect(() => {
     if (typeof navigator === "undefined") return;
     const ua = navigator.userAgent || "";
@@ -355,50 +40,41 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
   }, []);
 
   useEffect(() => {
-    if (isMobile) {
-      mobileInputRef.current?.focus();
-    }
+    if (isMobile) mobileInputRef.current?.focus();
   }, [isMobile]);
 
-  const getCellStatus = (rowIndex: number, colIndex: number): CellStatus => {
-    const guess = guesses[rowIndex];
-    if (!guess) return "empty";
+  // Physical keyboard support (disabled while intro is showing)
+  useEffect(() => {
+    if (isMobile || showIntro) return;
+    const listener = (e: KeyboardEvent) => {
+      const key = e.key.toUpperCase();
+      if (key === "ENTER") { e.preventDefault(); handleKeyPress("ENTER"); }
+      else if (key === "BACKSPACE") { e.preventDefault(); handleKeyPress("BACKSPACE"); }
+      else if (/^[A-Z]$/.test(key)) handleKeyPress(key);
+    };
+    window.addEventListener("keydown", listener);
+    return () => window.removeEventListener("keydown", listener);
+  }, [handleKeyPress, isMobile, showIntro]);
 
-    const statuses = evaluateGuess(guess);
-    return statuses[colIndex];
-  };
-
-  const renderTile = (rowIndex: number, colIndex: number) => {
-    const isCurrentRow = rowIndex === guesses.length;
-    const guessForRow = guesses[rowIndex] || "";
-    let letter = "";
-
-    if (guessForRow) {
-      letter = guessForRow[colIndex] ?? "";
-    } else if (isCurrentRow) {
-      letter = currentGuess[colIndex] ?? "";
-    }
-
-    const status = !guessForRow ? "empty" : getCellStatus(rowIndex, colIndex);
-
-    return (
-      <div
-        key={`${rowIndex}-${colIndex}`}
-        className={`tile tile--${status} ${
-          letter ? "tile--filled" : ""
-        }`.trim()}
-      >
-        {letter}
-      </div>
-    );
-  };
+  // Show stats modal when game ends
+  useEffect(() => {
+    if (gameStatus !== "playing") setShowStats(true);
+  }, [gameStatus]);
 
   const handleNewGame = () => {
     startNewGame();
     setShowIntro(false);
-    if (isMobile) {
-      mobileInputRef.current?.focus();
-    }
+    setShowStats(false);
+    if (isMobile) mobileInputRef.current?.focus();
+  };
+
+  const handleMobileChange = (value: string) => {
+    if (gameStatus !== "playing") return;
+    setCurrentGuess(value.replace(/[^a-zA-Z]/g, "").toUpperCase().slice(0, wordLength));
+  };
+
+  const handleMobileKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") { e.preventDefault(); handleKeyPress("ENTER"); }
   };
 
   const message =
@@ -414,68 +90,26 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
         <Header
           modeLabel={mode === "teams" ? "team" : "player"}
           onBack={onBack}
-          onOpenInfo={(section) => setInfoSection(section)}
+          onOpenInfo={setInfoSection}
         />
-        {/* Top banner ad (good for desktop and mobile) */}
-        {/* <AdSlot id="top-banner" label="Top banner ad" /> */}
       </header>
 
       <main className="fw-main">
-        {/* Left sidebar for desktop */}
-        <aside className="fw-sidebar fw-sidebar--left">
-          {/* <AdSlot id="sidebar-left" label="Sidebar ad" /> */}
-        </aside>
+        <aside className="fw-sidebar fw-sidebar--left" />
 
         <section className="fw-board-container">
-          {/* Ad above the board – high visibility, but below the title */}
-          {/* <AdSlot id="above-board" label="Above board ad" /> */}
-
           <div className="fw-message">{message}</div>
-          {isMobile && (
-            <input
-              className="fw-mobile-input"
-              id="fw-mobile"
-              ref={mobileInputRef}
-              type="text"
-              inputMode="text"
-              autoCapitalize="characters"
-              autoComplete="off"
-              autoCorrect="off"
-              autoFocus
-              value={currentGuess}
-              onChange={(e) => handleMobileChange(e.target.value)}
-              onKeyDown={handleMobileKeyDown}
-              maxLength={WORD_LENGTH}
-              placeholder="Type your guess"
-              aria-label="Type your guess"
-              onFocus={(e) => e.target.select()}
-            />
-          )}
-          <div
-            className="fw-board"
-            style={
-              {
-                "--fw-word-length": WORD_LENGTH,
-                "--fw-tile-size": `${tileSizePx}px`,
-                "--fw-tile-gap": `${TILE_GAP_PX}px`,
-              } as CSSProperties
-            }
-            onClick={() => {
-              if (isMobile) {
-                mobileInputRef.current?.focus();
-              }
-            }}
-          >
-            {Array.from({ length: MAX_TRIES }).map((_, rowIdx) => (
-              <div className="fw-row" key={rowIdx}>
-                {Array.from({ length: WORD_LENGTH }).map((_, colIdx) =>
-                  renderTile(rowIdx, colIdx)
-                )}
-              </div>
-            ))}
-          </div>
-          {/* Ad between board and keyboard */}
-          {/* <AdSlot id="between-board-keyboard" label="Mid-page ad" /> */}
+
+          <Board
+            guesses={guesses}
+            currentGuess={currentGuess}
+            normalizedTarget={normalizedTarget}
+            getEvaluatedGuess={getEvaluatedGuess}
+            isMobile={isMobile}
+            mobileInputRef={mobileInputRef}
+            onMobileChange={handleMobileChange}
+            onMobileKeyDown={handleMobileKeyDown}
+          />
 
           <Keyboard
             onKeyPress={handleKeyPress}
@@ -492,416 +126,31 @@ const FootballWordle: React.FC<FootballWordleProps> = ({
           </div>
         </section>
 
-        {/* Right column for desktop only – large rectangles */}
-        <aside className="fw-sidebar fw-sidebar--right">
-          {/* <AdSlot id="sidebar-rect" label="Sidebar ad" /> */}
-          {/* <AdSlot id="sidebar-rect-2" label="Sidebar ad 2" /> */}
-        </aside>
+        <aside className="fw-sidebar fw-sidebar--right" />
       </main>
 
-      <section className="fw-site-links" aria-label="Site information">
-        <div className="fw-site-links__content">
-          <div className="fw-site-links__copy">
-            <p className="fw-site-links__eyebrow">More about this game</p>
-            <h2>Helpful info for players and reviewers</h2>
-            <p>
-              Football Wordle is a free, independent word game for fans. We do
-              not collect personal data; stats live in your browser only. Last
-              updated February 4, 2026.
-            </p>
-          </div>
-          <div className="fw-site-links__actions">
-            <button
-              className="fw-button fw-button--ghost fw-button--sm"
-              onClick={() => setInfoSection("about")}
-            >
-              About
-            </button>
-            <button
-              className="fw-button fw-button--ghost fw-button--sm"
-              onClick={() => setInfoSection("how")}
-            >
-              How to play
-            </button>
-            <button
-              className="fw-button fw-button--ghost fw-button--sm"
-              onClick={() => setInfoSection("policy")}
-            >
-              Privacy & ads
-            </button>
-            <button
-              className="fw-button fw-button--ghost fw-button--sm"
-              onClick={() => setInfoSection("faq")}
-            >
-              FAQ
-            </button>
-            <button
-              className="fw-button fw-button--ghost fw-button--sm"
-              onClick={() => setInfoSection("contact")}
-            >
-              Contact
-            </button>
-          </div>
-        </div>
-      </section>
+      <SiteLinks onOpenInfo={setInfoSection} />
 
-      {/* Sticky footer ad (especially strong on mobile) */}
-      <footer className="fw-footer">
-        {/* <AdSlot id="sticky-footer" label="Sticky footer ad" /> */}
-      </footer>
+      <footer className="fw-footer" />
 
-      {showIntro && (
-        <div className="fw-modal" role="dialog" aria-modal="true">
-          <div
-            className="fw-modal__backdrop"
-            onClick={() => setShowIntro(false)}
-          />
-          <div className="fw-modal__content fw-modal__content--intro">
-            <div className="fw-modal__header">
-              <div>
-                <p className="fw-modal__eyebrow">Quick start</p>
-                <h2 className="fw-modal__title">How to play</h2>
-              </div>
-              <button
-                className="fw-modal__close"
-                aria-label="Close intro"
-                onClick={() => setShowIntro(false)}
-              >
-                ✕
-              </button>
-            </div>
-
-            <p className="fw-intro-text">
-              You have 6 tries to guess the football player. Type or tap
-              letters, then press enter to submit.
-            </p>
-
-            <div className="fw-intro-steps">
-              <div className="fw-intro-step">
-                <span className="fw-intro-badge">Green</span>
-                <span>Correct letter in the correct spot</span>
-              </div>
-              <div className="fw-intro-step">
-                <span className="fw-intro-badge fw-intro-badge--yellow">
-                  Yellow
-                </span>
-                <span>Letter is in the word, wrong spot</span>
-              </div>
-              <div className="fw-intro-step">
-                <span className="fw-intro-badge fw-intro-badge--red">Red</span>
-                <span>Letter is not in the word</span>
-              </div>
-            </div>
-
-            <div className="fw-modal__actions">
-              <button className="fw-button" onClick={() => setShowIntro(false)}>
-                Start playing
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {showIntro && <IntroModal onClose={() => setShowIntro(false)} />}
 
       {showStats && (
-        <div className="fw-modal" role="dialog" aria-modal="true">
-          <div
-            className="fw-modal__backdrop"
-            onClick={() => setShowStats(false)}
-          />
-          <div className="fw-modal__content">
-            <div className="fw-modal__header">
-              <div>
-                <p className="fw-modal__eyebrow">Session recap</p>
-                <h2 className="fw-modal__title">Your Footle stats</h2>
-              </div>
-              <button
-                className="fw-modal__close"
-                aria-label="Close stats"
-                onClick={() => setShowStats(false)}
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="fw-stats-grid">
-              <div className="fw-stat-card">
-                <span className="fw-stat-number">{totalPlayed}</span>
-                <span className="fw-stat-label">Played</span>
-              </div>
-              <div className="fw-stat-card">
-                <span className="fw-stat-number">{winRate}%</span>
-                <span className="fw-stat-label">Win rate</span>
-              </div>
-              <div className="fw-stat-card">
-                <span className="fw-stat-number">{stats.losses}</span>
-                <span className="fw-stat-label">Losses</span>
-              </div>
-              <div className="fw-stat-card">
-                <span className="fw-stat-number">{stats.currentStreak}</span>
-                <span className="fw-stat-label">Current streak</span>
-              </div>
-              <div className="fw-stat-card">
-                <span className="fw-stat-number">{stats.bestStreak}</span>
-                <span className="fw-stat-label">Best streak</span>
-              </div>
-            </div>
-
-            <div className="fw-distribution">
-              <div className="fw-distribution__header">
-                <p className="fw-modal__eyebrow">Guess distribution</p>
-              </div>
-              <div className="fw-distribution__list">
-                {stats.guesses.map((count, idx) => {
-                  const width = totalSolved
-                    ? Math.max(10, Math.round((count / maxGuessCount) * 100))
-                    : 10;
-                  return (
-                    <div className="fw-distribution__row" key={idx}>
-                      <span className="fw-distribution__label">{idx + 1}</span>
-                      <div className="fw-distribution__bar-wrapper">
-                        <div
-                          className="fw-distribution__bar"
-                          style={{ width: `${width}%` }}
-                        />
-                      </div>
-                      <span className="fw-distribution__count">{count}</span>
-                    </div>
-                  );
-                })}
-                <div className="fw-distribution__row fw-distribution__row--loss">
-                  <span className="fw-distribution__label">X</span>
-                  <div className="fw-distribution__bar-wrapper">
-                    <div
-                      className="fw-distribution__bar fw-distribution__bar--loss"
-                      style={{
-                        width: `${
-                          stats.losses
-                            ? Math.max(
-                                10,
-                                Math.min(
-                                  100,
-                                  Math.round(
-                                    (stats.losses /
-                                      Math.max(stats.losses, maxGuessCount)) *
-                                      100
-                                  )
-                                )
-                              )
-                            : 10
-                        }%`,
-                      }}
-                    />
-                  </div>
-                  <span className="fw-distribution__count">{stats.losses}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="fw-modal__actions">
-              <button
-                className="fw-button"
-                onClick={() => {
-                  setShowStats(false);
-                  handleNewGame();
-                }}
-              >
-                Play again
-              </button>
-            </div>
-          </div>
-        </div>
+        <StatsModal
+          stats={stats}
+          guesses={guesses}
+          onClose={() => setShowStats(false)}
+          onNewGame={handleNewGame}
+        />
       )}
 
       {infoSection && (
-        <div className="fw-modal" role="dialog" aria-modal="true">
-          <div
-            className="fw-modal__backdrop"
-            onClick={() => setInfoSection(null)}
-          />
-          <div className="fw-modal__content fw-modal__content--info">
-            <div className="fw-modal__header">
-              <div>
-                <p className="fw-modal__eyebrow">Site guide</p>
-                <h2 className="fw-modal__title">Football Wordle information</h2>
-              </div>
-              <button
-                className="fw-modal__close"
-                aria-label="Close information"
-                onClick={() => setInfoSection(null)}
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="fw-info">
-              <nav className="fw-info__nav" aria-label="Information sections">
-                {[
-                  { id: "about", label: "About" },
-                  { id: "how", label: "How to play" },
-                  { id: "policy", label: "Privacy & ads" },
-                  { id: "faq", label: "FAQ" },
-                  { id: "contact", label: "Contact" },
-                ].map((item) => (
-                  <button
-                    key={item.id}
-                    className={`fw-info__tab ${
-                      infoSection === item.id ? "fw-info__tab--active" : ""
-                    }`.trim()}
-                    aria-current={infoSection === item.id ? "page" : undefined}
-                    onClick={() =>
-                      setInfoSection(item.id as InfoSection)
-                    }
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </nav>
-
-              <div className="fw-info__content">
-                {infoSection === "about" && (
-                  <div className="fw-info__panel">
-                    <h3>About Football Wordle</h3>
-                    <p>
-                      Built by football fans, this game focuses on recognizable
-                      names from major leagues. We update the lists regularly
-                      and keep the rules short and clear so every round feels
-                      fair.
-                    </p>
-                    <p>
-                      The experience is ad-supported, but gameplay always stays
-                      front and center.
-                    </p>
-                  </div>
-                )}
-
-                {infoSection === "how" && (
-                  <div className="fw-info__panel">
-                    <h3>How to play</h3>
-                    <ol>
-                      <li>Choose players or clubs.</li>
-                      <li>Type a name and submit.</li>
-                      <li>
-                        Green = correct spot, yellow = in the word, red = not in
-                        the word.
-                      </li>
-                      <li>You have 6 tries to solve it.</li>
-                    </ol>
-                  </div>
-                )}
-
-                {infoSection === "policy" && (
-                  <div className="fw-info__panel">
-                    <h3>Privacy & ads policy</h3>
-                    <ul>
-                      <li>
-                        No personal data collection. Only local storage for
-                        streaks.
-                      </li>
-                      <li>
-                        No user accounts or forced sign-ups.
-                      </li>
-                      <li>
-                        Ads appear away from core controls to avoid accidental
-                        clicks.
-                      </li>
-                      <li>
-                        No custom tracking pixels or social embeds.
-                      </li>
-                    </ul>
-                    <p>Policy updated February 4, 2026.</p>
-                  </div>
-                )}
-
-                {infoSection === "faq" && (
-                  <div className="fw-info__panel">
-                    <h3>FAQ</h3>
-                    <p>
-                      <strong>Is it free?</strong> Yes, the game is free to play
-                      in your browser.
-                    </p>
-                    <p>
-                      <strong>Does it work on mobile?</strong> Yes. The layout
-                      and keyboard adapt for phones and tablets.
-                    </p>
-                    <p>
-                      <strong>How do updates work?</strong> Lists are reviewed
-                      weekly during the season and after transfer windows.
-                    </p>
-                  </div>
-                )}
-
-                {infoSection === "contact" && (
-                  <div className="fw-info__panel">
-                    <h3>Contact</h3>
-                    <p>
-                      Have feedback or found a missing name? Email us and we
-                      will review it.
-                    </p>
-                    <p>
-                      Email:{" "}
-                      <a
-                        className="fw-inline-link"
-                        href="mailto:webgames594@gmail.com"
-                      >
-                        webgames594@gmail.com
-                      </a>
-                    </p>
-                    <p>
-                      We respond to genuine feedback and update the FAQ when
-                      common questions come in.
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+        <InfoModal
+          section={infoSection}
+          onClose={() => setInfoSection(null)}
+          onNavigate={setInfoSection}
+        />
       )}
-    </div>
-  );
-};
-
-interface KeyboardProps {
-  onKeyPress: (key: string) => void;
-  disabled?: boolean;
-  keyStatuses?: Record<string, CellStatus>;
-}
-
-const Keyboard: React.FC<KeyboardProps> = ({
-  onKeyPress,
-  disabled,
-  keyStatuses,
-}) => {
-  const rows = [
-    "QWERTYUIOP".split(""),
-    "ASDFGHJKL".split(""),
-    ["ENTER", ..."ZXCVBNM".split(""), "BACKSPACE"],
-  ];
-
-  const handleClick = (key: string) => {
-    if (disabled) return;
-    onKeyPress(key);
-  };
-
-  return (
-    <div className="fw-keyboard">
-      {rows.map((row, rowIdx) => (
-        <div className="fw-keyboard-row" key={rowIdx}>
-          {row.map((key) => (
-            <button
-              key={key}
-              className={`fw-key ${
-                key === "ENTER" || key === "BACKSPACE" ? "fw-key--wide" : ""
-              } ${
-                keyStatuses?.[key] ? `fw-key--${keyStatuses[key]}` : ""
-              }`.trim()}
-              onClick={() => handleClick(key)}
-            >
-              {key === "BACKSPACE" ? "⌫" : key}
-            </button>
-          ))}
-        </div>
-      ))}
     </div>
   );
 };
