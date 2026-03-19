@@ -361,7 +361,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectMode }) => {
               <h2>Contact &amp; updates</h2>
               <p>
                 Football Wordle is a fan-made game with weekly list updates
-                during the season. Last updated February 4, 2026.
+                during the season. Last updated March 19, 2026.
               </p>
               <p>
                 Email:{" "}
