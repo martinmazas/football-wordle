@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Football Wordle — The Football Fan Word Guessing Game</title>
+  <meta name="description" content="Learn about Football Wordle: who made it, how the word lists are curated, how it is updated, and what makes it different from other football guessing games." />
+  <link rel="canonical" href="https://wordlefootball.netlify.app/about.html" />
+  <meta name="robots" content="index,follow" />
+  <meta name="google-adsense-account" content="ca-pub-6840620846200583" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6840620846200583" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 760px; margin: 0 auto; padding: 32px 20px 60px; line-height: 1.75; color: #1a1a2e; }
+    a { color: #3a86ff; }
+    h1 { font-size: 2rem; margin: 0 0 8px; }
+    h2 { font-size: 1.35rem; margin-top: 2.5rem; border-bottom: 2px solid #e8e8f0; padding-bottom: 6px; }
+    p { margin: 0.75rem 0; }
+    ul { margin: 0.75rem 0; padding-left: 1.5rem; }
+    li { margin-bottom: 6px; }
+    nav { margin-bottom: 28px; font-size: 0.9rem; }
+    nav a { margin-right: 14px; }
+    .highlight { background: #f4f4fb; border-left: 4px solid #538d4e; padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 20px 0; }
+    footer { margin-top: 3.5rem; border-top: 1px solid #e0e0ec; padding-top: 16px; font-size: 0.85rem; opacity: 0.65; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/">← Play Football Wordle</a>
+    <a href="/how-to-play.html">How to play</a>
+    <a href="/privacy-policy.html">Privacy policy</a>
+  </nav>
+
+  <header>
+    <h1>About Football Wordle</h1>
+    <p>Football Wordle is a free, browser-based word guessing game built specifically for football (soccer) fans. It is inspired by the mechanics of classic Wordle but focused entirely on the world of football: players, clubs, and teams from the top leagues around the globe.</p>
+  </header>
+
+  <main>
+
+    <h2>What the game is</h2>
+    <p>Football Wordle gives you a hidden word — the name of a footballer or a football club — and up to six guesses to figure it out. After each guess, color-coded tiles reveal which letters are correct, which are present but misplaced, and which don't appear at all. The challenge is to use that feedback intelligently to narrow down the answer before your guesses run out.</p>
+    <p>There are two game modes: <strong>Guess players</strong> and <strong>Guess clubs</strong>. Both modes use the same color-hint mechanics, but draw from different word lists. Players can switch between modes at any point and play as many rounds as they like — there is no daily limit.</p>
+
+    <h2>Who made it</h2>
+    <p>Football Wordle is an independent fan project created by a football enthusiast who wanted a quick, clean guessing game focused on football names rather than general English vocabulary. The project is not affiliated with the New York Times, the original Wordle game, any professional football league, or any official club or governing body.</p>
+    <p>The site was designed to be genuinely useful — not just as a quick novelty, but as a game with replay value for fans who want to test and improve their knowledge of player names and club rosters across multiple leagues.</p>
+
+    <h2>How the word lists are built</h2>
+    <p>Every name on the Football Wordle word list is selected by hand. The criteria for inclusion are:</p>
+    <ul>
+      <li><strong>Recognition.</strong> The player or club should be recognisable to a fan who follows at least one major league regularly. Highly obscure youth players or reserve-team players are excluded.</li>
+      <li><strong>Current relevance.</strong> Names are prioritised based on activity in the current or most recent season. Retired players may be included if they remain household names (e.g., Zidane, Maldini, Ronaldinho).</li>
+      <li><strong>Fair length.</strong> Very short names (two letters) and extremely long multi-word names can make the puzzle unfair, so the list favours names that fit naturally on the game board. Where a club name is very long, the most distinctive word is used.</li>
+      <li><strong>League coverage.</strong> The list aims for broad geographic coverage — Premier League, La Liga, Bundesliga, Serie A, Ligue 1, Eredivisie, MLS, and major international competitions are all represented, not just the most popular leagues.</li>
+    </ul>
+
+    <h2>How updates work</h2>
+    <p>The word list is reviewed at minimum once per week during the active football season. Updates happen after:</p>
+    <ul>
+      <li>Major transfer windows (January and summer)</li>
+      <li>Significant injuries that sideline a player for an extended period</li>
+      <li>End-of-season retirements or notable moves</li>
+      <li>Promotion and relegation that change which clubs belong in a top-flight list</li>
+    </ul>
+    <p>When a player moves clubs their name may remain on the list under the new club context. When a player retires, they are either kept (if they are a legend of the game) or removed (if their relevance was tied primarily to their active career).</p>
+
+    <div class="highlight">
+      <strong>Transparency note:</strong> If you feel a name has been incorrectly included or removed, or if you spot an error in how a name is spelled or normalised, you are welcome to contact us at <a href="mailto:webgames594@gmail.com">webgames594@gmail.com</a>. We review all feedback before the next list update.
+    </div>
+
+    <h2>Technical approach</h2>
+    <p>Football Wordle is built with React and Vite and deployed on Netlify. It loads quickly and works on any modern browser — Chrome, Firefox, Safari, and Edge — on both desktop and mobile devices. The on-screen keyboard is designed specifically for touchscreens so the game is just as playable on a phone as on a laptop.</p>
+    <p>All game state (guesses, stats, streaks) is stored exclusively in your browser's local storage. No data is sent to any server and no personal information is ever collected or requested. See the <a href="/privacy-policy.html">full privacy policy</a> for details.</p>
+
+    <h2>Monetisation and advertising</h2>
+    <p>Football Wordle is free to play and is supported by display advertising through Google AdSense. Ad placements are intentionally positioned away from the game board and keyboard to avoid accidental taps and to keep the gameplay experience clean. The goal is to cover hosting and maintenance costs without compromising the game experience for players.</p>
+
+    <h2>Contact</h2>
+    <p>For questions, suggestions, or feedback about word lists, reach out at: <a href="mailto:webgames594@gmail.com">webgames594@gmail.com</a>.</p>
+    <p>You can also <a href="/how-to-play.html">read the full how-to-play guide</a> if you're new to the game and want a detailed walkthrough of the rules and color hints.</p>
+
+  </main>
+
+  <footer>
+    <p>Football Wordle — Independent fan project. Last updated March 2026. · <a href="/privacy-policy.html">Privacy policy</a></p>
+  </footer>
+
+</body>
+</html>

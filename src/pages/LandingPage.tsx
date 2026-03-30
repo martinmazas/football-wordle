@@ -379,6 +379,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectMode }) => {
               <a href="#features">Features</a>
               <a href="#policy">Privacy &amp; ads</a>
               <a href="#faq">FAQ</a>
+              <a href="/how-to-play.html">Full guide</a>
+              <a href="/about.html">About</a>
             </div>
           </div>
           <p className="fw-landing__footer-note">
@@ -386,6 +388,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectMode }) => {
             leagues. ·{" "}
             <a className="fw-inline-link" href="/privacy-policy.html">
               Privacy policy
+            </a>
+            {" · "}
+            <a className="fw-inline-link" href="/how-to-play.html">
+              How to play
+            </a>
+            {" · "}
+            <a className="fw-inline-link" href="/about.html">
+              About
             </a>
           </p>
         </footer>
