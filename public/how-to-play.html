@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How to Play Football Wordle — Rules, Tips &amp; Color Hints Explained</title>
-  <meta name="description" content="Learn how to play Football Wordle. Full rules, color hint guide, tips for guessing football players and clubs, and answers to common questions." />
+  <title>How to Play Football Wordle — Complete Rules, Color Hints &amp; Tips</title>
+  <meta name="description" content="Learn how to play Football Wordle. Full rules, color hint guide, step-by-step walkthrough, strategy tips for guessing football players and clubs, and answers to all common questions." />
   <link rel="canonical" href="https://wordlefootball.netlify.app/how-to-play.html" />
   <meta name="robots" content="index,follow" />
   <meta name="google-adsense-account" content="ca-pub-6840620846200583" />
@@ -29,20 +29,63 @@
     .grey   { background: #818384; }
     .hint-label { display: flex; align-items: center; gap: 10px; margin: 10px 0; font-size: 0.95rem; }
     .tip-box { background: #f4f4fb; border-left: 4px solid #3a86ff; padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 20px 0; }
+    .warn-box { background: #fff8ec; border-left: 4px solid #e6a817; padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 20px 0; }
+    .example-block { background: #f9f9fd; border: 1px solid #e0e0ec; border-radius: 8px; padding: 18px 20px; margin: 20px 0; }
+    .example-block p { margin: 0 0 10px; font-size: 0.93rem; color: #555; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.93rem; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid #e8e8f0; }
+    th { background: #f4f4fb; font-weight: 600; }
+    dl dt { font-weight: 700; margin-top: 14px; }
+    dl dd { margin: 4px 0 0 0; }
     footer { margin-top: 3.5rem; border-top: 1px solid #e0e0ec; padding-top: 16px; font-size: 0.85rem; opacity: 0.65; }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many guesses do you get in Football Wordle?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You get six guesses per round in Football Wordle. If you guess the correct name within six tries, you win. If you run out of guesses, the answer is revealed." }
+      },
+      {
+        "@type": "Question",
+        "name": "What do the colors mean in Football Wordle?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Green means the letter is correct and in the right position. Yellow means the letter is in the answer but in the wrong position. Red means the letter does not appear in the answer at all." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I play Football Wordle more than once per day?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Unlike the original Wordle, Football Wordle lets you play as many rounds as you like. Each round picks a new word at random from the word list." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Football Wordle work on mobile?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Football Wordle includes a mobile-optimized on-screen keyboard and responsive layout that works on phones and tablets of all sizes." }
+      },
+      {
+        "@type": "Question",
+        "name": "What football leagues are included in Football Wordle?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Football Wordle includes players and clubs from the Premier League, La Liga, Bundesliga, Serie A, Ligue 1, Eredivisie, MLS, and major international competitions. The word list is reviewed and updated weekly." }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
   <nav>
     <a href="/">← Play Football Wordle</a>
     <a href="/about.html">About</a>
+    <a href="/blog.html">Blog</a>
+    <a href="/contact.html">Contact</a>
     <a href="/privacy-policy.html">Privacy policy</a>
   </nav>
 
   <header>
     <h1>How to Play Football Wordle</h1>
-    <p><strong>Football Wordle</strong> is a free word-guessing game for football fans. You have six tries to guess the name of a football player or club, using color-coded letter hints to narrow down each guess. This page walks you through every rule, explains what each color means, and shares practical tips for guessing more efficiently.</p>
+    <p><strong>Football Wordle</strong> is a free word-guessing game for football fans. You have six tries to guess the name of a football player or club, using color-coded letter hints to narrow down each guess. This page walks you through every rule, explains what each color means, shares practical tips, and answers the most common questions players have.</p>
   </header>
 
   <main>
@@ -50,6 +93,7 @@
     <h2>The basics</h2>
     <p>At the start of each round the game selects a hidden word — either a <strong>football player's last name</strong> or a <strong>football club's name</strong> depending on the mode you chose. Your job is to figure out that word in six guesses or fewer.</p>
     <p>Each guess must be typed using the on-screen keyboard (on mobile) or your physical keyboard (on desktop) and submitted by pressing <strong>Enter</strong>. After you submit, every letter in your guess lights up with a color that tells you how close you are to the correct answer.</p>
+    <p>There is no daily limit — you can play as many rounds as you like back to back. Each round picks a fresh word from the full list.</p>
 
     <h2>What the colors mean</h2>
     <p>Understanding the color hints is the key skill in Football Wordle. There are three possible colors:</p>
@@ -63,76 +107,163 @@
 
     <div class="hint-label"><span class="tile green" style="width:32px;height:32px;font-size:.9rem;">G</span> <strong>Green</strong> — the letter is in the answer AND in the exact right position.</div>
     <div class="hint-label"><span class="tile yellow" style="width:32px;height:32px;font-size:.9rem;">Y</span> <strong>Yellow</strong> — the letter exists in the answer but is in the wrong position. Move it somewhere else on your next guess.</div>
-    <div class="hint-label"><span class="tile red" style="width:32px;height:32px;font-size:.9rem;">R</span> <strong>Red</strong> — the letter does not appear anywhere in the answer. You can safely remove it from future guesses.</div>
+    <div class="hint-label"><span class="tile red" style="width:32px;height:32px;font-size:.9rem;">R</span> <strong>Red</strong> — the letter does not appear anywhere in the answer. Remove it from all future guesses.</div>
 
-    <p>The on-screen keyboard also updates its key colors after each guess so you can see at a glance which letters are confirmed, misplaced, or eliminated.</p>
+    <p>The on-screen keyboard also updates its key colors after each guess so you can see at a glance which letters are confirmed, misplaced, or eliminated — without having to scroll back through your previous rows.</p>
+
+    <h3>Worked example</h3>
+    <div class="example-block">
+      <p>Suppose the hidden word is <strong>SILVA</strong> and you guess <strong>SALAS</strong>:</p>
+      <div class="hint-row">
+        <div class="tile green">S</div>
+        <div class="tile yellow">A</div>
+        <div class="tile red">L</div>
+        <div class="tile red">A</div>
+        <div class="tile red">S</div>
+      </div>
+      <p>S in position 1 is green — it's correct there. A in position 2 is yellow — it's in the answer but not in that spot. L, A, and S in positions 3, 4, 5 are red — these letters don't appear in the remaining positions (note: S is already used in position 1).</p>
+      <p>From this you know: the answer starts with S, contains an A that isn't in position 2, and doesn't have an extra L or S elsewhere. That's enough to dramatically narrow your next guess.</p>
+    </div>
 
     <h2>Step-by-step walkthrough</h2>
     <ol>
-      <li><strong>Pick a mode.</strong> From the home page tap <em>Guess players</em> to guess a footballer's name, or <em>Guess clubs</em> to guess a club name. Both modes play identically; only the word list changes.</li>
-      <li><strong>Type your first guess.</strong> On desktop, use your keyboard directly. On mobile, tap the on-screen keys. Words are case-insensitive and accents are handled automatically, so you don't need to worry about them.</li>
-      <li><strong>Press Enter to submit.</strong> On mobile there is a dedicated send button. On desktop press the Enter key.</li>
-      <li><strong>Read the color hints</strong> on each tile and on the keyboard, then use them to form a better second guess.</li>
+      <li><strong>Pick a mode.</strong> From the home page tap <em>Guess players</em> to guess a footballer's name, or <em>Guess clubs</em> to guess a club name. Both modes play identically — only the word list changes.</li>
+      <li><strong>Read the board length.</strong> Before typing, count how many letter tiles appear on the board. That's exactly how many letters are in the hidden word. Use that length to filter possible names immediately.</li>
+      <li><strong>Type your first guess.</strong> On desktop, use your keyboard directly. On mobile, tap the on-screen keys. Words are case-insensitive and accents are handled automatically, so you never need to type accented characters.</li>
+      <li><strong>Press Enter to submit.</strong> On mobile there is a dedicated send button. On desktop press the Enter key. The tiles will flip to reveal colors.</li>
+      <li><strong>Read the color hints</strong> on each tile and on the keyboard, then use them to form a better second guess. Keep green letters in place, reuse yellow letters in a different position, and exclude all red letters from future guesses.</li>
       <li><strong>Repeat</strong> for up to six guesses. If you guess the word before running out you win; otherwise the answer is revealed.</li>
       <li><strong>Check your stats.</strong> After each round a stats summary shows your current streak, win percentage, and guess distribution. Tap <em>Play again</em> to start a new round immediately.</li>
     </ol>
 
     <h2>Game modes explained</h2>
+
     <h3>Guess players</h3>
     <p>The hidden word is the last name of a well-known professional footballer. The player pool covers men's and women's top-flight leagues including the Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, and major international competitions. Lists are reviewed weekly and updated after each major transfer window so the names stay current and relevant.</p>
+    <p>For Brazilian and some other South American players who are universally known by a single name or first name (Neymar, Vinicius, Rodrygo), the game uses that single name rather than the surname.</p>
 
     <h3>Guess clubs</h3>
-    <p>The hidden word is the name (or a key part of the name) of a professional football club. Clubs are drawn from the same top-flight leagues. Names are kept to what fits the board — longer club names may be shortened to the most distinctive word so the puzzle remains fair.</p>
+    <p>The hidden word is the name — or the most distinctive keyword — of a professional football club. Clubs are drawn from the same top-flight leagues. Names are kept to what fits the board: longer club names may be shortened to the most distinctive word (for example, "Forest" for Nottingham Forest) so the puzzle remains fair and recognisable.</p>
 
-    <h2>Tips to improve your guesses</h2>
+    <h2>Keyboard and input</h2>
 
-    <div class="tip-box">
-      <strong>Start with common letters.</strong> In football names the letters A, E, R, S, and N appear very frequently. Opening with a name that contains several of these gives you a strong first hint.
-    </div>
+    <h3>Desktop keyboard</h3>
+    <p>Type normally using your physical keyboard. Only letters A–Z are accepted; numbers and symbols are ignored. Press <strong>Enter</strong> to submit your guess and <strong>Backspace</strong> to delete the last letter typed.</p>
 
-    <div class="tip-box">
-      <strong>Pay attention to word length.</strong> The board shows how many tiles the answer has. A five-letter board means you're looking for a five-letter name — use that to eliminate players with longer or shorter names immediately.
-    </div>
+    <h3>Mobile on-screen keyboard</h3>
+    <p>The on-screen keyboard is designed for touchscreens and shows all available letters. Tap letters to build your guess. Use the backspace key (←) to delete and the send key to submit. The keyboard updates its colors after each guess, just like the board tiles.</p>
 
-    <div class="tip-box">
-      <strong>Use yellow hints carefully.</strong> A yellow letter must appear somewhere in the answer, just not where you placed it. On your next guess, move that letter to a different position rather than dropping it altogether.
-    </div>
-
-    <div class="tip-box">
-      <strong>Think by league.</strong> If you get a few green letters, mentally filter through the word list by league. For example, a five-letter word starting with M-E could narrow quickly once you think of players in your preferred league.
-    </div>
-
-    <div class="tip-box">
-      <strong>Accents and special characters.</strong> Football has many names with accented letters (ñ, ü, é, etc.). Football Wordle normalises all names to basic Latin letters so you never need to type accents — just type the plain letter.
-    </div>
+    <h3>Accents and special characters</h3>
+    <p>Many football names include accented letters (ñ, ü, é, ç, ø) or other special characters. Football Wordle normalises all names to basic Latin letters automatically — you never need to type an accent. Just type the plain letter equivalent and the game handles the rest.</p>
 
     <h2>Streaks and statistics</h2>
     <p>Football Wordle tracks four stats automatically for each game mode:</p>
     <ul>
-      <li><strong>Games played</strong> — total rounds completed.</li>
+      <li><strong>Games played</strong> — total rounds completed in this mode.</li>
       <li><strong>Win percentage</strong> — how often you solve the puzzle within six guesses.</li>
-      <li><strong>Current streak</strong> — consecutive wins without a loss.</li>
-      <li><strong>Max streak</strong> — your all-time best consecutive wins.</li>
+      <li><strong>Current streak</strong> — consecutive wins without a loss. A single loss resets this to zero.</li>
+      <li><strong>Max streak</strong> — your all-time best consecutive wins in this mode.</li>
     </ul>
+    <p>Stats are tracked separately for players mode and clubs mode. A win in one mode does not affect the streak in the other.</p>
     <p>All stats are stored in your browser's local storage. They reset if you clear your browser data, and they do not sync across devices or require any account.</p>
 
-    <h2>Common questions</h2>
-    <h3>Can I play more than once per day?</h3>
-    <p>Yes. Unlike the original Wordle which has one puzzle per day, Football Wordle lets you start a new round immediately after each game. Each round picks a new word from the full list.</p>
+    <h2>Tips to improve your guesses</h2>
 
-    <h3>Are answers repeated?</h3>
-    <p>Words can repeat across different sessions. The list is large enough that repetitions are uncommon in short sessions, but because the game picks words at random you may occasionally see the same answer twice.</p>
+    <div class="tip-box">
+      <strong>Start with common letters.</strong> In football names the letters A, E, R, S, and N appear very frequently. Opening with a name that contains several of these gives you a strong first hint regardless of the answer.
+    </div>
 
-    <h3>What if I think the word list is outdated?</h3>
-    <p>Lists are updated weekly during the football season and after major transfer windows. If you think a name is missing or outdated, you can contact us at <a href="mailto:webgames594@gmail.com">webgames594@gmail.com</a>.</p>
+    <div class="tip-box">
+      <strong>Pay attention to word length.</strong> The board shows how many tiles the answer has before you type anything. A five-letter board means you're looking for a five-letter name — use that to filter out players with longer or shorter names immediately.
+    </div>
 
-    <h3>Does it work offline?</h3>
-    <p>The game loads its word list when the page is first opened. Once loaded, it works without an internet connection until you refresh the page.</p>
+    <div class="tip-box">
+      <strong>Use yellow hints carefully.</strong> A yellow letter must appear somewhere in the answer, just not where you placed it. On your next guess, move that letter to a different position rather than dropping it altogether. Never ignore a yellow — it's a confirmed letter.
+    </div>
+
+    <div class="tip-box">
+      <strong>Never reuse red letters.</strong> Once a tile goes red, that letter is not in the answer anywhere. Before submitting each guess, quickly scan your previous red tiles to make sure none of those letters snuck into your new guess. This is the most common mistake players make.
+    </div>
+
+    <div class="tip-box">
+      <strong>Think by league.</strong> Once you have two or three confirmed letters, narrow candidates by mentally filtering through the leagues you know. La Liga names often end in -EZ or -O. Premier League squads include many short English names and longer West African names. Bundesliga names often include consonant clusters. Use that knowledge to generate better guesses.
+    </div>
+
+    <div class="tip-box">
+      <strong>Use an information guess on guess 4 or 5.</strong> If you're down to two possible answers with one guess remaining, it's often worth spending guess 4 or 5 on a word that tests the letters distinguishing the two candidates — even if that guess itself isn't a valid answer. This is better than a coin flip.
+    </div>
+
+    <div class="tip-box">
+      <strong>Accents are normalised.</strong> Football has many names with accented letters (ñ, ü, é, ø, etc.). Football Wordle normalises all names to basic Latin letters so you never need to type accents — just type the plain letter equivalent.
+    </div>
+
+    <h2>Difficulty levels by name type</h2>
+    <table>
+      <thead>
+        <tr><th>Name type</th><th>Example</th><th>Difficulty</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Short English names</td><td>KANE, RICE, SHAW</td><td>Easier</td><td>Familiar letters, short length</td></tr>
+        <tr><td>Spanish/Italian names</td><td>SILVA, RAMOS, BARELLA</td><td>Moderate</td><td>Consistent vowel patterns</td></tr>
+        <tr><td>Portuguese/Brazilian</td><td>NEVES, FABINHO, DIOGO</td><td>Moderate</td><td>Recognisable if you follow La Liga or PL</td></tr>
+        <tr><td>Scandinavian names</td><td>HAALAND, ERIKSEN</td><td>Moderate</td><td>Double vowels can be surprising</td></tr>
+        <tr><td>West African names</td><td>ONANA, TSIMIKAS, SAKA</td><td>Harder</td><td>Unfamiliar consonant clusters</td></tr>
+        <tr><td>Eastern European names</td><td>MODRIC, SZOBOSZLAI</td><td>Harder</td><td>Unusual consonant combinations</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Frequently asked questions</h2>
+
+    <dl>
+      <dt>Can I play more than once per day?</dt>
+      <dd>Yes. Unlike the original Wordle which has one puzzle per day, Football Wordle lets you start a new round immediately after each game. Each round picks a new word from the full list at random.</dd>
+
+      <dt>Are answers repeated?</dt>
+      <dd>Words can repeat across different sessions. The list is large enough that repetitions are uncommon in short sessions, but because the game picks words at random you may occasionally see the same answer twice.</dd>
+
+      <dt>What if I think the word list is outdated?</dt>
+      <dd>Lists are updated weekly during the football season and after major transfer windows. If you think a name is missing or outdated, contact us at <a href="mailto:webgames594@gmail.com">webgames594@gmail.com</a>.</dd>
+
+      <dt>Does it work offline?</dt>
+      <dd>The game loads its word list when the page is first opened. Once loaded, it works without an internet connection until you refresh the page.</dd>
+
+      <dt>Why did my stats reset?</dt>
+      <dd>Stats are stored in your browser's local storage. Clearing your browser's cache or data, or using a private/incognito window, will reset them. Stats do not sync across devices.</dd>
+
+      <dt>Can I switch between players mode and clubs mode?</dt>
+      <dd>Yes. Use the back button at the top of the game screen to return to the mode selector at any time. Your current round will be abandoned but your stats are preserved.</dd>
+
+      <dt>Why is my guess not accepted?</dt>
+      <dd>Football Wordle currently accepts any sequence of letters up to the word length — the game does not validate against a fixed dictionary. Make sure you are typing only letters (no spaces or special characters) and that your guess matches the length shown on the board.</dd>
+
+      <dt>Does Football Wordle store my personal data?</dt>
+      <dd>No. We store only your game stats in your browser's local storage. No name, email, IP, or device identifier is collected. See the <a href="/privacy-policy.html">full privacy policy</a>.</dd>
+
+      <dt>Is Football Wordle affiliated with the original Wordle?</dt>
+      <dd>No. Football Wordle is an independent fan project. It is not affiliated with the New York Times, the original Wordle game, any professional football league, or any official club or governing body.</dd>
+
+      <dt>How is Football Wordle funded?</dt>
+      <dd>The game is free to play and supported by display advertising through Google AdSense. Ad placements are positioned away from the game board and keyboard to avoid accidental taps. See our <a href="/privacy-policy.html">privacy policy</a> for details on how ads work.</dd>
+
+      <dt>What browsers does Football Wordle support?</dt>
+      <dd>Football Wordle works on any modern browser — Chrome, Firefox, Safari, and Edge — on both desktop and mobile. Internet Explorer is not supported.</dd>
+
+      <dt>Can I share my result with friends?</dt>
+      <dd>At the end of each round the stats screen shows your result. You can take a screenshot to share on social media. A native share feature is on our roadmap.</dd>
+    </dl>
+
+    <h2>Related reading</h2>
+    <ul>
+      <li><a href="/blog/strategy-guide.html">Complete strategy guide — how to win at Football Wordle</a></li>
+      <li><a href="/blog/premier-league-players.html">Premier League players in Football Wordle — who to know</a></li>
+      <li><a href="/blog/football-leagues-guide.html">The football leagues behind Football Wordle — a fan's guide</a></li>
+      <li><a href="/about.html">About Football Wordle — how the word lists are built</a></li>
+    </ul>
 
   </main>
 
   <footer>
-    <p>Football Wordle — Independent fan project. Not affiliated with Wordle or any official football organisation. · <a href="/privacy-policy.html">Privacy policy</a></p>
+    <p>Football Wordle — Independent fan project. Not affiliated with Wordle or any official football organisation. · <a href="/privacy-policy.html">Privacy policy</a> · <a href="/contact.html">Contact</a> · <a href="/terms.html">Terms</a></p>
   </footer>
 
 </body>

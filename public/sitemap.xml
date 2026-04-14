@@ -2,26 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wordlefootball.netlify.app/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://wordlefootball.netlify.app/how-to-play.html</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://wordlefootball.netlify.app/about.html</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wordlefootball.netlify.app/blog.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://wordlefootball.netlify.app/blog/strategy-guide.html</loc>
+    <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://wordlefootball.netlify.app/privacy-policy.html</loc>
-    <lastmod>2026-03-30</lastmod>
+    <loc>https://wordlefootball.netlify.app/blog/premier-league-players.html</loc>
+    <lastmod>2026-04-14</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wordlefootball.netlify.app/blog/football-leagues-guide.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wordlefootball.netlify.app/contact.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://wordlefootball.netlify.app/terms.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://wordlefootball.netlify.app/privacy-policy.html</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 </urlset>

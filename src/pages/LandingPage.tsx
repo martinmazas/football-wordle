@@ -19,8 +19,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectMode }) => {
             <a href="#about">About</a>
             <a href="#how-to-play">How to play</a>
             <a href="#features">Features</a>
-            <a href="#policy">Policy</a>
             <a href="#faq">FAQ</a>
+            <a href="/blog.html">Blog</a>
+            <a href="/contact.html">Contact</a>
           </nav>
           <div className="fw-landing__nav-cta">
             <button
@@ -355,6 +356,44 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectMode }) => {
           </div>
         </section>
 
+        <section className="fw-section" id="blog">
+          <div className="fw-section__header">
+            <p className="fw-eyebrow">From the blog</p>
+            <h2>Guides, strategy &amp; league knowledge</h2>
+            <p className="fw-section__lead">
+              Original articles written by the Football Wordle team to help you improve your game and learn more about the football world behind the word lists.
+            </p>
+          </div>
+
+          <div className="fw-feature-grid">
+            <article className="fw-feature">
+              <h3><a href="/blog/strategy-guide.html" style={{ color: "inherit", textDecoration: "none" }}>Complete Strategy Guide</a></h3>
+              <p>
+                Best opening guesses, how to read color hints efficiently, and the mental models that separate experienced players from beginners.
+              </p>
+              <a className="fw-inline-link" href="/blog/strategy-guide.html">Read the guide →</a>
+            </article>
+            <article className="fw-feature">
+              <h3><a href="/blog/premier-league-players.html" style={{ color: "inherit", textDecoration: "none" }}>Premier League Players — Who to Know</a></h3>
+              <p>
+                A breakdown of the most commonly featured Premier League players, organized by name length and difficulty.
+              </p>
+              <a className="fw-inline-link" href="/blog/premier-league-players.html">Read the article →</a>
+            </article>
+            <article className="fw-feature">
+              <h3><a href="/blog/football-leagues-guide.html" style={{ color: "inherit", textDecoration: "none" }}>Football Leagues Guide</a></h3>
+              <p>
+                An overview of every major league in Football Wordle: Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, and more.
+              </p>
+              <a className="fw-inline-link" href="/blog/football-leagues-guide.html">Read the guide →</a>
+            </article>
+          </div>
+
+          <div style={{ textAlign: "center", marginTop: "24px" }}>
+            <a className="fw-button fw-button--ghost" href="/blog.html">View all articles</a>
+          </div>
+        </section>
+
         <footer className="fw-landing__footer" id="contact">
           <div className="fw-landing__footer-main">
             <div>
@@ -377,10 +416,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectMode }) => {
               <a href="#about">About</a>
               <a href="#how-to-play">How to play</a>
               <a href="#features">Features</a>
-              <a href="#policy">Privacy &amp; ads</a>
               <a href="#faq">FAQ</a>
+              <a href="/blog.html">Blog</a>
               <a href="/how-to-play.html">Full guide</a>
               <a href="/about.html">About</a>
+              <a href="/contact.html">Contact</a>
+              <a href="/terms.html">Terms</a>
             </div>
           </div>
           <p className="fw-landing__footer-note">
@@ -390,12 +431,24 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectMode }) => {
               Privacy policy
             </a>
             {" · "}
+            <a className="fw-inline-link" href="/terms.html">
+              Terms
+            </a>
+            {" · "}
             <a className="fw-inline-link" href="/how-to-play.html">
               How to play
             </a>
             {" · "}
             <a className="fw-inline-link" href="/about.html">
               About
+            </a>
+            {" · "}
+            <a className="fw-inline-link" href="/blog.html">
+              Blog
+            </a>
+            {" · "}
+            <a className="fw-inline-link" href="/contact.html">
+              Contact
             </a>
           </p>
         </footer>
