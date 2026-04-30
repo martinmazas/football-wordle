@@ -159,115 +159,124 @@
 <body>
   <!-- Static fallback for crawlers and no-JS visitors -->
   <noscript>
-    <div style="max-width:860px;margin:0 auto;padding:24px 20px;font-family:system-ui,sans-serif;line-height:1.7;color:#1a1a2e;">
+    <div style="max-width:900px;margin:0 auto;padding:32px 20px 60px;font-family:system-ui,sans-serif;line-height:1.75;color:#1a1a2e;">
 
-      <nav style="margin-bottom:24px;">
-        <a href="#about" style="margin-right:16px;">About</a>
-        <a href="#how-to-play" style="margin-right:16px;">How to play</a>
-        <a href="#faq" style="margin-right:16px;">FAQ</a>
-        <a href="/how-to-play.html" style="margin-right:16px;">Full guide</a>
-        <a href="/about.html" style="margin-right:16px;">About page</a>
+      <nav style="margin-bottom:28px;font-size:.9rem;">
+        <a href="/how-to-play.html" style="margin-right:16px;">How to play</a>
+        <a href="/about.html" style="margin-right:16px;">About</a>
+        <a href="/blog.html" style="margin-right:16px;">Blog</a>
+        <a href="/contact.html" style="margin-right:16px;">Contact</a>
         <a href="/privacy-policy.html">Privacy policy</a>
       </nav>
 
-      <header style="margin-bottom:32px;">
-        <h1 style="font-size:2rem;margin:0 0 10px;">
+      <header style="margin-bottom:36px;">
+        <h1 style="font-size:2.2rem;margin:0 0 12px;line-height:1.2;">
           Football Wordle — Guess Football Players &amp; Clubs in 6 Tries
         </h1>
-        <p style="font-size:1.1rem;margin:0 0 16px;">
-          <strong>Football Wordle</strong> is a free <strong>Wordle-style football guessing game</strong>.
-          Guess famous <strong>football players</strong> or <strong>clubs</strong> in up to
-          <strong>6 tries</strong> with color-coded letter hints. No sign-up, no download — plays instantly
-          in any browser on mobile or desktop.
+        <p style="font-size:1.1rem;margin:0 0 16px;max-width:680px;">
+          <strong>Football Wordle</strong> is a free Wordle-style football guessing game.
+          Identify famous <strong>football players</strong> or <strong>clubs</strong> from the Premier League,
+          La Liga, Bundesliga, Serie A, Ligue 1, MLS, and more — using color-coded letter hints in up to
+          <strong>6 guesses</strong>. No sign-up, no download. Plays instantly in any browser.
         </p>
-        <p style="font-style:italic;font-size:.9rem;">
-          Enable JavaScript to play the full interactive game.
-        </p>
+        <p style="font-size:.9rem;color:#555;font-style:italic;">Enable JavaScript to play the interactive game.</p>
       </header>
 
-      <section id="about" style="margin-bottom:32px;">
-        <h2>About Football Wordle</h2>
-        <p>
-          Built by football fans, Football Wordle covers recognizable names from the world’s top leagues —
-          Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, and more. Lists are reviewed weekly
-          during the season and updated after every major transfer window so each round stays relevant.
-        </p>
-        <p>
-          There are two modes: <strong>Guess players</strong> (famous footballers past and present) and
-          <strong>Guess clubs</strong> (top-flight teams and competition participants). Both modes use the
-          same color-hint mechanics as classic Wordle.
-        </p>
-        <p>
-          Your stats and streaks are stored locally in your browser only — nothing leaves your device and
-          no personal data is ever collected or requested.
-        </p>
-      </section>
-
-      <section id="how-to-play" style="margin-bottom:32px;">
-        <h2>How to play Football Wordle</h2>
-        <ol>
-          <li><strong>Choose a mode:</strong> pick <em>Guess players</em> or <em>Guess clubs</em>.</li>
-          <li><strong>Type a name:</strong> use your physical keyboard or the on-screen keyboard on mobile.</li>
-          <li><strong>Submit your guess</strong> and read the color hints on each letter:
-            <ul>
-              <li><strong>Green</strong> — correct letter in the correct position.</li>
-              <li><strong>Yellow</strong> — letter is in the answer but in the wrong position.</li>
-              <li><strong>Red</strong> — letter does not appear in the answer at all.</li>
+      <section id="how-to-play" style="margin-bottom:36px;">
+        <h2 style="font-size:1.5rem;border-bottom:2px solid #e0e0ec;padding-bottom:6px;">How to play Football Wordle</h2>
+        <ol style="padding-left:1.4rem;">
+          <li style="margin-bottom:8px;"><strong>Choose a mode:</strong> Guess players (footballer last names) or Guess clubs (top-flight team names).</li>
+          <li style="margin-bottom:8px;"><strong>Type a name</strong> and press Enter. Accents are handled automatically — just type plain letters.</li>
+          <li style="margin-bottom:8px;"><strong>Read the color hints:</strong>
+            <ul style="margin:.5rem 0;padding-left:1.2rem;">
+              <li><strong style="color:#16a34a;">Green</strong> — correct letter in the correct position.</li>
+              <li><strong style="color:#a16207;">Yellow</strong> — letter is in the answer but in the wrong position.</li>
+              <li><strong style="color:#b91c1c;">Red</strong> — letter does not appear in the answer at all.</li>
             </ul>
           </li>
-          <li>Use the hints to refine your next guess. You have <strong>6 tries</strong> per round.</li>
-          <li>After each round your stats (win rate, streak, guess distribution) update automatically.</li>
+          <li style="margin-bottom:8px;">Use the hints to refine your next guess. Keep green letters in place. Move yellow letters to a new position. Never reuse red letters.</li>
+          <li>You have <strong>6 guesses</strong> per round. Most players solve it in 3 or 4 once they learn the system.</li>
         </ol>
       </section>
 
-      <section style="margin-bottom:32px;">
-        <h2>Features</h2>
-        <ul>
-          <li>Two game modes: football players and football clubs.</li>
-          <li>Fresh word lists updated weekly with current squad and transfer news.</li>
-          <li>On-screen keyboard optimised for mobile play.</li>
-          <li>Streak and stats tracking saved locally — no account required.</li>
-          <li>Fast load times with Vite and React; no interstitials or forced steps before play.</li>
-          <li>Accessible design with high-contrast colors and ARIA labels throughout.</li>
-          <li>Works on any modern browser — Chrome, Firefox, Safari, Edge.</li>
+      <section id="leagues" style="margin-bottom:36px;">
+        <h2 style="font-size:1.5rem;border-bottom:2px solid #e0e0ec;padding-bottom:6px;">Leagues covered</h2>
+        <p>Football Wordle draws names from six major leagues, each with its own naming traditions:</p>
+        <ul style="padding-left:1.4rem;">
+          <li style="margin-bottom:10px;"><strong>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</strong> — The most diverse league in Football Wordle. Short English names (RICE, KANE, SHAW) alongside West African names (ONANA, SAKA, TROSSARD) and Scandinavian double-vowels (HAALAND, ODEGAARD). 20 clubs, the highest name variety of any league.</li>
+          <li style="margin-bottom:10px;"><strong>🇪🇸 La Liga</strong> — Consistent vowel-heavy patterns. Spanish surnames end in -EZ (SANCHEZ, RAMIREZ), -O (SERGIO, MARCO), or -A (SILVA, RAMOS). South American players add Italian-origin names. Once you recognise the endings, La Liga names become much easier to narrow down.</li>
+          <li style="margin-bottom:10px;"><strong>🇩🇪 Bundesliga</strong> — German names feature consonant clusters — KIMMICH, GNABRY, GORETZKA, NEUER. Medium length (5–7 letters), compound structures, and a growing African and South American presence make Bundesliga names moderately challenging.</li>
+          <li style="margin-bottom:10px;"><strong>🇮🇹 Serie A</strong> — Italian surnames almost always end in vowels: -I (BONUCCI, BARELLA) or -O (INSIGNE, IMMOBILE). Argentine stars like DYBALA add double-letter patterns. Vowel-rich names mean letters confirm early — a key advantage.</li>
+          <li style="margin-bottom:10px;"><strong>🇫🇷 Ligue 1</strong> — The most nationally diverse league. West African naming traditions produce consonant clusters at word starts: NKUNKU, MBAPPE, THURAM. North African names add further variety. Ligue 1 produces the hardest names in the game on average.</li>
+          <li style="margin-bottom:10px;"><strong>🇺🇸 MLS</strong> — English and Hispanic surnames from American and Canadian players, plus recognisable European transfers. Names tend to be shorter and follow familiar English patterns — an accessible entry point for newer players.</li>
         </ul>
+        <p><a href="/blog/football-leagues-guide.html">Read the full leagues guide with naming tips →</a></p>
       </section>
 
-      <section id="faq" style="margin-bottom:32px;">
-        <h2>Frequently asked questions</h2>
+      <section id="name-types" style="margin-bottom:36px;">
+        <h2 style="font-size:1.5rem;border-bottom:2px solid #e0e0ec;padding-bottom:6px;">Name difficulty guide</h2>
+        <p>Football Wordle includes names across a wide difficulty range. Knowing the categories helps you prepare:</p>
+        <ul style="padding-left:1.4rem;">
+          <li style="margin-bottom:10px;"><strong>Easier — Short English names:</strong> Known to any football fan globally. KANE, RICE, SHAW, WARD, JAMES. Short length means fewer unknown positions from the start.</li>
+          <li style="margin-bottom:10px;"><strong>Moderate — Spanish &amp; Italian names:</strong> Consistent vowel patterns. SILVA, RAMOS, BARELLA, SANCHEZ, DYBALA. Spot the ending and your candidate list shrinks quickly.</li>
+          <li style="margin-bottom:10px;"><strong>Moderate — Scandinavian &amp; Dutch names:</strong> Double-vowel combinations (AA in HAALAND, OO in Dutch names). HAALAND, ODEGAARD, ERIKSEN, TROSSARD. Distinctive once you know the pattern.</li>
+          <li style="margin-bottom:10px;"><strong>Harder — West African &amp; Eastern European names:</strong> Unfamiliar consonant clusters (MB, ND, NK at the start) or unusual combinations (SZ, GV). ONANA, KIMMICH, SZOBOSZLAI, KVARATSKHELIA. Requires broad multi-league knowledge.</li>
+        </ul>
+        <p><a href="/blog/hardest-names.html">Read the hardest name categories guide with strategies →</a></p>
+      </section>
+
+      <section id="strategy" style="margin-bottom:36px;">
+        <h2 style="font-size:1.5rem;border-bottom:2px solid #e0e0ec;padding-bottom:6px;">Strategy tips</h2>
+        <ul style="padding-left:1.4rem;">
+          <li style="margin-bottom:8px;"><strong>Open with high-frequency letters.</strong> A, E, R, S, and N appear most often across football names. Use an opener like SILVA, MORAN, or LANES to probe as many of these as possible.</li>
+          <li style="margin-bottom:8px;"><strong>Never reuse red letters.</strong> A red tile permanently eliminates that letter. Before submitting each guess, scan every previous red tile. This is the most common mistake.</li>
+          <li style="margin-bottom:8px;"><strong>Always include yellow letters.</strong> Yellow means confirmed in the answer — just wrong position. Never drop a yellow letter from your next guess.</li>
+          <li style="margin-bottom:8px;"><strong>Filter by league once you have 2–3 letters.</strong> Ends in -EZ? Think La Liga or Argentina. Starts with MB or ND? Think West African from Ligue 1 or Premier League. Contains AA or OO? Think Dutch or Scandinavian.</li>
+          <li style="margin-bottom:8px;"><strong>Check name length before your first guess.</strong> 4-letter names often point to English or South American players. 7–8 letters suggest German, French, or Eastern European origins.</li>
+        </ul>
+        <p><a href="/blog/strategy-guide.html">Read the complete strategy guide →</a></p>
+      </section>
+
+      <section id="faq" style="margin-bottom:36px;">
+        <h2 style="font-size:1.5rem;border-bottom:2px solid #e0e0ec;padding-bottom:6px;">Frequently asked questions</h2>
         <dl>
-          <dt><strong>Is Football Wordle free?</strong></dt>
-          <dd>Yes. The game is completely free to play in your browser with no subscription or sign-up.</dd>
-
-          <dt style="margin-top:12px;"><strong>Is this the official Wordle?</strong></dt>
-          <dd>No. Football Wordle is an independent fan project inspired by Wordle. It has no affiliation with
-            the New York Times or any official football league or club.</dd>
-
-          <dt style="margin-top:12px;"><strong>Does it save my progress?</strong></dt>
-          <dd>Yes. Your streak, win rate, and guess distribution are saved in your browser’s local storage.
-            Clearing browser data will reset them.</dd>
-
-          <dt style="margin-top:12px;"><strong>Does it work on mobile?</strong></dt>
-          <dd>Yes. The layout and the on-screen keyboard are designed for phones and tablets of all sizes.</dd>
-
-          <dt style="margin-top:12px;"><strong>How often are the lists updated?</strong></dt>
-          <dd>Lists are reviewed weekly during the football season and after major transfer windows. Long-term
-            injured players may be temporarily removed to keep rounds fair.</dd>
-
-          <dt style="margin-top:12px;"><strong>How is the game funded?</strong></dt>
-          <dd>The game is supported by display advertising. Ads are placed away from the game board and
-            keyboard so they never interrupt gameplay.</dd>
-
-          <dt style="margin-top:12px;"><strong>What data do you collect?</strong></dt>
-          <dd>We collect no personal data. Only your local game stats are stored, and only on your own device.
-            See our <a href="/privacy-policy.html">privacy policy</a> for full details.</dd>
+          <dt style="font-weight:700;margin-top:14px;">Is Football Wordle free?</dt>
+          <dd>Yes. The game is completely free to play in your browser with no subscription or sign-up required.</dd>
+          <dt style="font-weight:700;margin-top:14px;">Can I play more than once a day?</dt>
+          <dd>Yes. Unlike daily Wordle, Football Wordle has no daily limit. Start a new round immediately after each game and play as many as you like.</dd>
+          <dt style="font-weight:700;margin-top:14px;">Do I need to type accents?</dt>
+          <dd>No. All names are normalised to basic Latin letters automatically. Type MBAPPE not MBAPPÉ, MODRIC not MODRIĆ.</dd>
+          <dt style="font-weight:700;margin-top:14px;">What does Clubs mode use as the answer?</dt>
+          <dd>The most distinctive keyword from the club’s name. WOLVES not WOLVERHAMPTON, FOREST not NOTTINGHAM FOREST, SPURS not TOTTENHAM HOTSPUR.</dd>
+          <dt style="font-weight:700;margin-top:14px;">How often are names updated?</dt>
+          <dd>Weekly during the football season and after major transfer windows. New stars are added when they reach global recognisability; retired or irrelevant names are removed.</dd>
+          <dt style="font-weight:700;margin-top:14px;">What data does Football Wordle store?</dt>
+          <dd>Only your game stats (streak, win rate, guess distribution) saved locally in your browser. Nothing is sent to a server. Clearing browser data resets the stats.</dd>
+          <dt style="font-weight:700;margin-top:14px;">Is Football Wordle affiliated with the original Wordle?</dt>
+          <dd>No. Football Wordle is an independent fan project. Not affiliated with the New York Times, any official football league, club, or governing body.</dd>
         </dl>
       </section>
 
-      <footer style="border-top:1px solid #ddd;padding-top:16px;font-size:.85rem;opacity:.7;">
-        <p>Football Wordle — Independent fan project. Last updated March 2026.</p>
+      <section id="blog" style="margin-bottom:36px;">
+        <h2 style="font-size:1.5rem;border-bottom:2px solid #e0e0ec;padding-bottom:6px;">From the blog</h2>
+        <ul style="padding-left:1.4rem;">
+          <li style="margin-bottom:8px;"><a href="/blog/clubs-mode-guide.html"><strong>Clubs Mode — Complete Strategy Guide</strong></a> — Which clubs are included, how keywords are chosen, best opening guesses for clubs mode, and a league-by-league breakdown.</li>
+          <li style="margin-bottom:8px;"><a href="/blog/hardest-names.html"><strong>The Hardest Football Player Names — and How to Guess Them</strong></a> — West African consonant clusters, Eastern European combinations, Scandinavian double-vowels, and strategies for each.</li>
+          <li style="margin-bottom:8px;"><a href="/blog/strategy-guide.html"><strong>Complete Strategy Guide</strong></a> — Best opening guesses, color hint strategies, and a 6-step checklist for winning in fewer guesses.</li>
+          <li style="margin-bottom:8px;"><a href="/blog/premier-league-players.html"><strong>Premier League Players Guide</strong></a> — Club-by-club breakdown of every naming tradition in Premier League squads.</li>
+          <li style="margin-bottom:8px;"><a href="/blog/football-leagues-guide.html"><strong>Football Leagues Guide</strong></a> — Every league covered in Football Wordle with naming conventions and practical tips.</li>
+        </ul>
+        <p><a href="/blog.html">View all articles →</a></p>
+      </section>
+
+      <footer style="border-top:1px solid #e0e0ec;padding-top:16px;font-size:.85rem;opacity:.7;">
+        <p>Football Wordle — Independent fan project. Not affiliated with Wordle or any official football organisation.</p>
         <p>
           <a href="/privacy-policy.html">Privacy policy</a> ·
+          <a href="/terms.html">Terms</a> ·
+          <a href="/how-to-play.html">How to play</a> ·
+          <a href="/about.html">About</a> ·
+          <a href="/blog.html">Blog</a> ·
           Contact: <a href="mailto:webgames594@gmail.com">webgames594@gmail.com</a>
         </p>
       </footer>

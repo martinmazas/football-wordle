@@ -861,6 +861,258 @@
   }
 }
 
+/* ========== STATS RIBBON ========== */
+.fw-stats-ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.fw-stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  min-width: 80px;
+}
+
+.fw-stat-pill__number {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #22c55e;
+  line-height: 1.2;
+}
+
+.fw-stat-pill__label {
+  font-size: 0.75rem;
+  color: var(--fw-text-muted);
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* ========== TILE EXAMPLE ========== */
+.fw-tile-example {
+  margin-top: 1.4rem;
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.fw-tile-example__label {
+  font-size: 0.82rem;
+  color: var(--fw-text-muted);
+  margin: 0 0 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.fw-tile-example__block {
+  margin-bottom: 1rem;
+}
+
+.fw-tile-example__block:last-child {
+  margin-bottom: 0;
+}
+
+.fw-tile-example__row {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.fw-tile-example__hint {
+  font-size: 0.85rem;
+  color: var(--fw-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.fw-demo-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 0.45rem;
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  flex-shrink: 0;
+}
+
+.fw-demo-tile--correct {
+  background: #22c55e;
+  color: #052e16;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3);
+}
+
+.fw-demo-tile--present {
+  background: #eab308;
+  color: #422006;
+  border-color: #eab308;
+}
+
+.fw-demo-tile--absent {
+  background: linear-gradient(145deg, #ef4444, #b91c1c);
+  color: #fff;
+  border-color: #ef4444;
+}
+
+.fw-demo-tile--empty {
+  background: rgba(15, 23, 42, 0.7);
+  color: transparent;
+}
+
+/* ========== LEAGUES ========== */
+.fw-league-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.85rem;
+}
+
+.fw-league-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  padding: 1rem 1.05rem;
+  border-radius: 0.95rem;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.fw-league-card:hover {
+  border-color: rgba(34, 197, 94, 0.4);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+.fw-league-card__flag {
+  font-size: 2rem;
+  line-height: 1;
+  padding-top: 0.1rem;
+}
+
+.fw-league-card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.fw-league-card p {
+  margin: 0 0 0.5rem;
+  color: var(--fw-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.fw-league-card__tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #a5b4fc;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ========== DIFFICULTY ========== */
+.fw-difficulty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.85rem;
+}
+
+.fw-difficulty-card {
+  padding: 1rem 1.05rem;
+  border-radius: 0.95rem;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(15, 23, 42, 0.55);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+.fw-difficulty-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.fw-difficulty-card__header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.fw-difficulty-card p {
+  color: var(--fw-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 0 0 0.65rem;
+}
+
+.fw-difficulty-badge {
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.fw-difficulty-badge--easy {
+  background: rgba(34, 197, 94, 0.2);
+  color: #bbf7d0;
+}
+
+.fw-difficulty-badge--medium {
+  background: rgba(234, 179, 8, 0.2);
+  color: #fef08a;
+}
+
+.fw-difficulty-badge--hard {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
+.fw-name-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.fw-name-chip {
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--fw-text);
+}
+
+/* Feature eyebrow label */
+.fw-feature__eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #a5b4fc;
+  font-weight: 700;
+  margin: 0 0 0.3rem;
+}
+
 /* ========== LANDING ========== */
 .fw-landing {
   min-height: 100vh;
