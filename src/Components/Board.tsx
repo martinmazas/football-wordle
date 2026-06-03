@@ -40,6 +40,11 @@ const Board: React.FC<BoardProps> = ({
   };
 
   const renderTile = (rowIndex: number, colIndex: number) => {
+    // Space positions act as visual word separators — never typed by the user
+    if (normalizedTarget[colIndex] === " ") {
+      return <div key={`${rowIndex}-${colIndex}`} className="tile tile--space" />;
+    }
+
     const isCurrentRow = rowIndex === guesses.length;
     const guessForRow = guesses[rowIndex] || "";
     let letter = "";
@@ -75,10 +80,10 @@ const Board: React.FC<BoardProps> = ({
           autoComplete="off"
           autoCorrect="off"
           autoFocus
-          value={currentGuess}
+          value={currentGuess.replace(/ /g, "")}
           onChange={(e) => onMobileChange(e.target.value)}
           onKeyDown={onMobileKeyDown}
-          maxLength={wordLength}
+          maxLength={normalizedTarget.replace(/ /g, "").length}
           placeholder="Type your guess"
           aria-label="Type your guess"
           onFocus={(e) => e.target.select()}

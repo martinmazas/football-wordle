@@ -11,9 +11,13 @@ export function evaluateGuess(guess: string, normalizedTarget: string): CellStat
   const targetChars = normalizedTarget.split("");
   const guessChars = guess.split("");
 
-  // First pass: mark correct positions (green)
+  // First pass: correct positions (green). Spaces in the target are always correct.
   const remaining: Record<string, number> = {};
   for (let i = 0; i < wordLength; i++) {
+    if (targetChars[i] === " ") {
+      result[i] = "correct";
+      continue;
+    }
     if (guessChars[i] === targetChars[i]) {
       result[i] = "correct";
     } else {
@@ -22,7 +26,7 @@ export function evaluateGuess(guess: string, normalizedTarget: string): CellStat
     }
   }
 
-  // Second pass: mark present (yellow) or absent (red)
+  // Second pass: present (yellow) or absent (red). Skip space positions.
   for (let i = 0; i < wordLength; i++) {
     if (result[i] === "correct") continue;
     const ch = guessChars[i];

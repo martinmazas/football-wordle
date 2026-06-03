@@ -130,12 +130,27 @@ export function useGame(mode: GameMode, wordList: string[]) {
     (key: string) => {
       if (gameStatus !== "playing") return;
       if (key === "ENTER") { handleSubmitGuess(); return; }
-      if (key === "BACKSPACE") { setCurrentGuess((prev) => prev.slice(0, -1)); return; }
-      if (/^[A-Z]$/.test(key) && currentGuess.length < wordLength) {
-        setCurrentGuess((prev) => prev + key);
+      if (key === "BACKSPACE") {
+        setCurrentGuess((prev) => {
+          // Strip trailing auto-inserted spaces, then remove the last letter
+          let g = prev;
+          while (g.length > 0 && g[g.length - 1] === " ") g = g.slice(0, -1);
+          return g.slice(0, -1);
+        });
+        return;
+      }
+      if (/^[A-Z]$/.test(key)) {
+        setCurrentGuess((prev) => {
+          if (prev.length >= wordLength) return prev;
+          let g = prev;
+          // Auto-fill any space(s) that sit at the next position
+          while (g.length < wordLength && normalizedTarget[g.length] === " ") g += " ";
+          if (g.length < wordLength) g += key;
+          return g;
+        });
       }
     },
-    [currentGuess.length, gameStatus, handleSubmitGuess, wordLength]
+    [gameStatus, handleSubmitGuess, normalizedTarget, wordLength]
   );
 
   const getEvaluatedGuess = useCallback(

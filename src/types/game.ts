@@ -1,6 +1,6 @@
 export type CellStatus = "empty" | "correct" | "present" | "absent";
 
-export type GameMode = "players" | "teams";
+export type GameMode = "players" | "teams" | "countries";
 
 export type InfoSection = "how" | "about" | "policy" | "faq" | "contact";
 

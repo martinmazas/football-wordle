@@ -24,7 +24,6 @@ const FootballWordle: React.FC<FootballWordleProps> = ({ mode, wordList, onBack 
     setCurrentGuess,
     gameStatus,
     normalizedTarget,
-    wordLength,
     stats,
     keyStatuses,
     startNewGame,
@@ -70,25 +69,39 @@ const FootballWordle: React.FC<FootballWordleProps> = ({ mode, wordList, onBack 
 
   const handleMobileChange = (value: string) => {
     if (gameStatus !== "playing") return;
-    setCurrentGuess(value.replace(/[^a-zA-Z]/g, "").toUpperCase().slice(0, wordLength));
+    const letters = value.replace(/[^a-zA-Z]/g, "").toUpperCase();
+    // Re-insert spaces at the positions where the target has them
+    let newGuess = "";
+    let letterIdx = 0;
+    for (let i = 0; i < normalizedTarget.length && letterIdx < letters.length; i++) {
+      if (normalizedTarget[i] === " ") {
+        newGuess += " ";
+      } else {
+        newGuess += letters[letterIdx++];
+      }
+    }
+    setCurrentGuess(newGuess);
   };
 
   const handleMobileKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") { e.preventDefault(); handleKeyPress("ENTER"); }
   };
 
+  const modeLabel =
+    mode === "countries" ? "country" : mode === "teams" ? "team" : "player";
+
   const message =
     gameStatus === "won"
       ? `You guessed ${normalizedTarget} in ${guesses.length} tries!`
       : gameStatus === "lost"
       ? `The answer was ${normalizedTarget}. Better luck next time!`
-      : `Guess the football ${mode === "teams" ? "team" : "player"}!`;
+      : `Guess the World Cup ${modeLabel}!`;
 
   return (
     <div className="fw-page">
       <header className="fw-header">
         <Header
-          modeLabel={mode === "teams" ? "team" : "player"}
+          modeLabel={modeLabel}
           onBack={onBack}
           onOpenInfo={setInfoSection}
         />

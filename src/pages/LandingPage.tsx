@@ -33,6 +33,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectMode }) => {
               Guess clubs
             </button>
             <button
+              className="fw-button fw-button--ghost fw-button--sm"
+              onClick={() => onSelectMode("countries")}
+            >
+              🌍 World Cup
+            </button>
+            <button
               className="fw-button fw-button--sm"
               onClick={() => onSelectMode("players")}
             >
@@ -62,6 +68,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectMode }) => {
                 onClick={() => onSelectMode("teams")}
               >
                 Guess clubs
+              </button>
+              <button
+                className="fw-button fw-button--ghost"
+                onClick={() => onSelectMode("countries")}
+              >
+                🌍 World Cup 2026
               </button>
               <a className="fw-landing__link" href="#how-to-play">
                 How it works ↓
@@ -107,7 +119,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSelectMode }) => {
             <span className="fw-stat-pill__label">Major leagues</span>
           </div>
           <div className="fw-stat-pill">
-            <span className="fw-stat-pill__number">2</span>
+            <span className="fw-stat-pill__number">3</span>
             <span className="fw-stat-pill__label">Game modes</span>
           </div>
           <div className="fw-stat-pill">

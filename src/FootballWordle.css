@@ -262,6 +262,26 @@
   color: #450a0a;
 }
 
+/* Space separator tile — shown between words in multi-word answers */
+.tile--space {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: var(--fw-tile-size, 44px);
+}
+.tile--space::after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #555;
+  opacity: 0.45;
+}
+
 
 /* ========== KEYBOARD ========== */
 
