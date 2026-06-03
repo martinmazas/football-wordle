@@ -210,5 +210,11 @@
     <p>Football Wordle — Independent fan project. Not affiliated with Wordle or any official football organisation. · <a href="/privacy-policy.html">Privacy policy</a> · <a href="/blog.html">Blog</a></p>
   </footer>
 
+  <div id="cb" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;color:#f0f0f8;padding:14px 20px;align-items:center;justify-content:space-between;gap:12px;font-size:.85rem;z-index:9999;flex-wrap:wrap;line-height:1.5;">
+    <p style="margin:0;flex:1 1 280px;">We use cookies for analytics (Google Analytics) and advertising (Google AdSense). By using this site you accept our <a href="/privacy-policy.html" style="color:#3a86ff;">cookie policy</a>.</p>
+    <button onclick="localStorage.setItem('cc','1');document.getElementById('cb').style.display='none';" style="background:#3a86ff;color:#fff;border:none;padding:9px 20px;border-radius:5px;cursor:pointer;font-size:.85rem;white-space:nowrap;font-weight:600;">Accept &amp; Close</button>
+  </div>
+  <script>if(!localStorage.getItem('cc')){document.getElementById('cb').style.display='flex';}</script>
+
 </body>
 </html>
